@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from '../services/auth/auth.service';
 import { AuthUseCase } from '../../app/use-cases/auth/auth.use-case';
+import { CsrfController } from './csrf/csrf.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../../shared/strategies/jwt.strategy';
 import { LocalStrategy } from './../../shared/strategies/local.strategy';
@@ -34,8 +35,6 @@ import { readFileSync } from 'fs';
           )
         );
 
-        console.log('privateKey', privateKey);
-
         return {
           privateKey,
           publicKey,
@@ -48,7 +47,7 @@ import { readFileSync } from 'fs';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, CsrfController],
   providers: [
     PrismaPersistence,
     ConfigService,
