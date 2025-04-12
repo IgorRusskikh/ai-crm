@@ -6,6 +6,8 @@ import { Logger } from '@nestjs/common';
 import MoleculerConfig from '../moleculer.config';
 import { ServiceBroker } from 'moleculer';
 import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const broker = new ServiceBroker(MoleculerConfig);
@@ -13,7 +15,17 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
+  app.use(helmet());
   app.use(cookieParser());
+  app.use(
+    csurf({
+      cookie: {
+        httpOnly: false,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    })
+  );
 
   const reflector = app.get(Reflector);
 
