@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -9,16 +9,29 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  email       String   @unique
+  phoneNumber String?  @unique
+  password    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  UserRole      UserRole[]
   oauthAccounts OAuthAccount[]
   loginHistory  LoginHistory[]
   refreshTokens RefreshToken[]
+
+  @@map("users")
+}
+
+model UserRole {
+  id     String @id @default(uuid())
+  userId String
+  role   Role
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user-to-roles")
 }
 
 model OAuthAccount {
@@ -26,24 +39,33 @@ model OAuthAccount {
   provider   String
   providerId String @unique
   userId     String
-  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("oauth-accounts")
 }
 
 model RefreshToken {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   token     String   @unique
   expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh-token")
 }
 
 model LoginHistory {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ipAddress String
   userAgent String?
   timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("login-history")
 }
 
 enum Role {
