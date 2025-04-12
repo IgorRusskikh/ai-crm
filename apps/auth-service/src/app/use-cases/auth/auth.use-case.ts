@@ -37,7 +37,9 @@ export class AuthUseCase {
         token: refreshToken,
         expiresAt: new Date(
           Date.now() +
-            Number(this.configService.get('REFRESH_TOKEN_EXPIRATION_TIME')) *
+            Number(
+              this.configService.get('REFRESH_TOKEN_EXPIRATION_TIME_FOR_DB')
+            ) *
               1000
         ),
       }
