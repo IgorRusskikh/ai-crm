@@ -60,6 +60,7 @@ export class AuthService {
       }
 
       const data: Omit<JwtPayload, 'sub'> = {
+        id: user.id,
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.UserRole.map((ur) => ur.role),

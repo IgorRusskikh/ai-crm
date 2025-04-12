@@ -59,7 +59,7 @@ export class TokensService {
     });
   }
 
-  async signAccessToken(payload: JwtPayload) {
+  async signAccessToken(payload: Omit<JwtPayload, 'id'>) {
     return this.signJwt({
       payload,
       options: {
@@ -68,7 +68,7 @@ export class TokensService {
     });
   }
 
-  async signRefreshToken(payload: JwtPayload) {
+  async signRefreshToken(payload: Omit<JwtPayload, 'id'>) {
     return this.signJwt({
       payload,
       options: {

@@ -21,6 +21,7 @@ export class AuthUseCase {
   ) {}
 
   async signIn(user: any) {
+    console.log('user', user);
     const payload = {
       email: user.email,
       role: user.role,
