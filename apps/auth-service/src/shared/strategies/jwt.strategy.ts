@@ -3,16 +3,20 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from '../../infrastructure/services/auth/auth.service';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { UnauthorizedException } from '../exceptions';
+import path from 'path';
+import { readFileSync } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly jwtService: JwtService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -30,7 +34,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         },
       ]),
       ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_SECRET'),
+      secretOrKey: readFileSync(
+        path.join(
+          process.cwd(),
+          'apps/auth-service/',
+          configService.get('JWT_PUBLIC_KEY')
+        )
+      ),
     });
   }
 
