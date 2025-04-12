@@ -6,6 +6,7 @@ import { AuthUseCase } from '../../app/use-cases/auth/auth.use-case';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../../shared/strategies/jwt.strategy';
 import { LocalStrategy } from './../../shared/strategies/local.strategy';
+import { LoginHistoryService } from '../services/login-history/login-history.service';
 import { Module } from '@nestjs/common';
 import { PrismaPersistence } from '../persistence/prisma.persistence';
 import { TokensService } from '../services/tokens/tokens.service';
@@ -33,6 +34,8 @@ import { readFileSync } from 'fs';
           )
         );
 
+        console.log('privateKey', privateKey);
+
         return {
           privateKey,
           publicKey,
@@ -55,6 +58,7 @@ import { readFileSync } from 'fs';
     JwtStrategy,
     AuthUseCase,
     TokensService,
+    LoginHistoryService,
   ],
 })
 export class ControllersModule {}
