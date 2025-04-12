@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Ip,
   Post,
   Request,
   Res,
@@ -12,18 +13,26 @@ import accessTokenCookie from 'apps/auth-service/src/shared/cookies/access-token
 import { Public } from 'apps/auth-service/src/shared/decorators/public.decorator';
 import { LocalAuthGuard } from 'apps/auth-service/src/shared/guards/local-auth.guard';
 import { Response } from 'express';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authUseCase: AuthUseCase) {}
+  constructor(
+    private readonly authUseCase: AuthUseCase,
+    private readonly authService: AuthService
+  ) {}
 
   @Post('signin')
   @UseGuards(LocalAuthGuard)
   @Public()
   async signin(
-    @Request() req: Express.Request,
-    @Res({ passthrough: true }) res: Response
+    @Request() req: Request & { user: { email: string } },
+    @Res({ passthrough: true }) res: Response,
+    @Ip() ip: string
   ) {
+    await this.authService.checkLoginRateLimit(req.user.email, ip);
+    console.log(req.user);
+
     const accessToken = await this.authUseCase.signIn(req.user);
 
     res.cookie('access_token', accessToken, accessTokenCookie);

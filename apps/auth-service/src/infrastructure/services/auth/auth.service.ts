@@ -1,9 +1,11 @@
 import * as argon2 from 'argon2';
 
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+
 import { JwtPayload } from 'apps/auth-service/src/app/interfaces/jwt-payload';
 import { UnauthorizedException } from 'apps/auth-service/src/shared/exceptions';
 import { UsersService } from '../users/users.service';
+import { rateLimiter } from 'apps/auth-service/src/shared/common/rate-limiter';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -74,5 +76,25 @@ export class AuthService {
         requestId: uuidv4(),
       });
     }
+  }
+
+  async checkLoginRateLimit(email: string, ip: string) {
+    const key = `login_fail:${email}:${ip}`;
+
+    try {
+      const loginRateLimiter = await rateLimiter.consume(key);
+    } catch (error) {
+      throw new BadRequestException({
+        message: 'Too many login attempts',
+        reason: 'Too many login attempts',
+        requestId: uuidv4(),
+      });
+    }
+  }
+
+  async resetLoginRateLimit(email: string, ip: string) {
+    const key = `login_fail:${email}:${ip}`;
+
+    await rateLimiter.delete(key);
   }
 }
