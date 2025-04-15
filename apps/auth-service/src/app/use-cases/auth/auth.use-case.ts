@@ -9,6 +9,7 @@ import { Prisma, Role } from 'apps/auth-service/prisma/generated/prisma';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { TokensService } from 'apps/auth-service/src/infrastructure/services/tokens/tokens.service';
+import { UserRoleService } from 'apps/auth-service/src/infrastructure/services/user-role/user-role.service';
 import { UsersService } from 'apps/auth-service/src/infrastructure/services/users/users.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +18,8 @@ export class AuthUseCase {
   constructor(
     private readonly tokensService: TokensService,
     private readonly usersService: UsersService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly userRoleService: UserRoleService
   ) {}
 
   async signIn(user: any) {
@@ -61,6 +63,7 @@ export class AuthUseCase {
     const existingUserByEmail = await this.usersService.getOneByEmail({
       email: user.email,
     });
+
     const existingUserByPhoneNumber =
       await this.usersService.getOneByPhoneNumber({
         phoneNumber: user.phoneNumber,
@@ -84,12 +87,9 @@ export class AuthUseCase {
       const newUser = await this.usersService.create({
         ...rest,
         password: hashedPassword,
-        UserRole: {
-          create: {
-            role: Role.USER,
-          },
-        },
       });
+
+      await this.userRoleService.createUserRole(newUser.id, Role.USER);
 
       if (!newUser) {
         throw new BadRequestException({
@@ -118,7 +118,9 @@ export class AuthUseCase {
           token: refreshToken,
           expiresAt: new Date(
             Date.now() +
-              Number(this.configService.get('REFRESH_TOKEN_EXPIRATION_TIME')) *
+              Number(
+                this.configService.get('REFRESH_TOKEN_EXPIRATION_TIME_FOR_DB')
+              ) *
                 1000
           ),
         });
@@ -138,6 +140,8 @@ export class AuthUseCase {
         refreshToken,
       };
     } catch (err) {
+      console.log('err', err);
+
       throw new BadRequestException({
         message: 'Failed to create user',
         code: 'USER_CREATION_FAILED',
