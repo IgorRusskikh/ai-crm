@@ -1,19 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Ip,
-  Post,
-  Request,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
-import { Prisma } from 'apps/auth-service/prisma/generated/prisma';
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
+import { LogoutDto } from 'apps/auth-service/src/app/dto/logout.dto';
+import { SignInDto } from 'apps/auth-service/src/app/dto/signin-dto';
+import { SignUpDto } from 'apps/auth-service/src/app/dto/signup-dto';
 import { AuthUseCase } from 'apps/auth-service/src/app/use-cases/auth/auth.use-case';
 import accessTokenCookie from 'apps/auth-service/src/shared/cookies/access-token.cookie';
-import { Public } from 'apps/auth-service/src/shared/decorators/public.decorator';
-import { LocalAuthGuard } from 'apps/auth-service/src/shared/guards/local-auth.guard';
-import { Response } from 'express';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginHistoryService } from '../../services/login-history/login-history.service';
 
@@ -25,64 +16,111 @@ export class AuthController {
     private readonly loginHistoryService: LoginHistoryService
   ) {}
 
-  @Post('signin')
-  @UseGuards(LocalAuthGuard)
-  @Public()
-  async signin(
-    @Request() req: Request & { user: { id: string; email: string } },
-    @Res({ passthrough: true }) res: Response,
-    @Ip() ip: string
-  ) {
-    await this.authService.checkLoginRateLimit(req.user.email, ip);
+  @MessagePattern('auth.signin')
+  async signin(@Payload() signInDto: SignInDto) {
+    console.log(signInDto);
 
-    const accessToken = await this.authUseCase.signIn(req.user);
-    await this.loginHistoryService.createLoginHistory({
-      user: {
-        connect: {
-          id: req.user.id,
+    try {
+      const accessToken = await this.authUseCase.signIn(signInDto);
+      await this.loginHistoryService.createLoginHistory({
+        user: {
+          connect: {
+            id: signInDto.user.id,
+          },
         },
-      },
-      ipAddress: ip,
-      userAgent: req.headers['user-agent'],
-    });
+        ipAddress: signInDto.ip,
+        userAgent: signInDto.userAgent,
+      });
 
-    res.cookie('access_token', accessToken, accessTokenCookie);
+      return {
+        accessToken,
+        cookieOptions: accessTokenCookie,
+      };
+    } catch (error) {
+      throw new RpcException(error.message || 'Ошибка при входе в систему');
+    }
   }
 
-  @Post('signup')
-  @Public()
-  async signup(
-    @Body() userCreateDto: Prisma.UserCreateInput,
-    @Request() req: Request & { user: { id: string } },
-    @Res({ passthrough: true }) res: Response,
-    @Ip() ip: string
-  ) {
-    const { accessToken } = await this.authUseCase.signUp(userCreateDto);
-    await this.loginHistoryService.createLoginHistory({
-      user: {
-        connect: {
-          id: req.user.id,
-        },
-      },
-      ipAddress: ip,
-      userAgent: req.headers['user-agent'],
-    });
+  @MessagePattern('auth.signup')
+  async signup(@Payload() signUpDto: SignUpDto) {
+    console.log(signUpDto);
 
-    res.cookie('access_token', accessToken, accessTokenCookie);
+    try {
+      const { user, accessToken } = await this.authUseCase.signUp(
+        signUpDto.user
+      );
+
+      console.log({ user });
+
+      await this.loginHistoryService.createLoginHistory({
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+        ipAddress: signUpDto.ip,
+        userAgent: signUpDto.userAgent,
+      });
+
+      console.log({ accessToken, cookieOptions: accessTokenCookie });
+
+      return {
+        accessToken,
+        cookieOptions: accessTokenCookie,
+      };
+    } catch (error) {
+      throw new RpcException(error.message || 'Ошибка при регистрации');
+    }
   }
 
-  @Get('logout')
-  async logout(
-    @Request() req: Request & { user: { email: string } },
-    @Res({ passthrough: true }) res: Response
+  @MessagePattern('auth.logout')
+  async logout(@Payload() logoutDto: LogoutDto) {
+    try {
+      await this.authService.recallRefreshToken(logoutDto.user.email);
+
+      return {
+        message: 'Logout successful',
+      };
+    } catch (error) {
+      throw new RpcException(error.message || 'Ошибка при выходе');
+    }
+  }
+
+  @MessagePattern('auth.validate-by-email-and-password')
+  async validateByEmailAndPassword(
+    @Payload()
+    validateByEmailAndPasswordDto: {
+      email: string;
+      password: string;
+    }
   ) {
-    await this.authService.recallRefreshToken(req.user.email);
+    try {
+      const user = await this.authService.validateUserByEmailAndPassword(
+        validateByEmailAndPasswordDto.email,
+        validateByEmailAndPasswordDto.password
+      );
 
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+      console.log('user', user);
 
-    return {
-      message: 'Logout successful',
-    };
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new RpcException(error.message || 'Ошибка при валидации');
+    }
+  }
+
+  @MessagePattern('auth.recall-refresh-tokens')
+  async recallRefreshToken(
+    @Payload() recallRefreshTokenDto: { email: string }
+  ) {
+    try {
+      await this.authService.recallRefreshToken(recallRefreshTokenDto.email);
+
+      return {
+        message: 'Refresh tokens recalled successfully',
+      };
+    } catch (error) {
+      throw new RpcException(error.message || 'Ошибка при вызове метода');
+    }
   }
 }

@@ -6,7 +6,6 @@ import { JwtPayload } from 'apps/auth-service/src/app/interfaces/jwt-payload';
 import { PrismaPersistence } from '../../persistence/prisma.persistence';
 import { UnauthorizedException } from 'apps/auth-service/src/shared/exceptions';
 import { UsersService } from '../users/users.service';
-import { rateLimiter } from 'apps/auth-service/src/shared/common/rate-limiter';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -57,6 +56,8 @@ export class AuthService {
     try {
       const isPasswordValid = await argon2.verify(user.password, password);
 
+      console.log('isPasswordValid', isPasswordValid);
+
       if (!isPasswordValid) {
         throw new UnauthorizedException({
           message: 'Invalid password',
@@ -65,12 +66,21 @@ export class AuthService {
         });
       }
 
+      console.log('user', {
+        id: user.id,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.UserRole.map((ur) => ur.role),
+      });
+
       const data: Omit<JwtPayload, 'sub'> = {
         id: user.id,
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.UserRole.map((ur) => ur.role),
       };
+
+      console.log('data', data);
 
       return data;
     } catch (error) {
@@ -116,27 +126,5 @@ export class AuthService {
     });
 
     return recalledRefreshToken;
-  }
-
-  async checkLoginRateLimit(email: string, ip: string) {
-    const key = `login_fail:${email}:${ip}`;
-
-    try {
-      const loginRateLimiter = await rateLimiter.consume(key);
-    } catch (error) {
-      await this.recallRefreshToken(email);
-
-      throw new BadRequestException({
-        message: 'Too many login attempts',
-        reason: 'Too many login attempts',
-        requestId: uuidv4(),
-      });
-    }
-  }
-
-  async resetLoginRateLimit(email: string, ip: string) {
-    const key = `login_fail:${email}:${ip}`;
-
-    await rateLimiter.delete(key);
   }
 }

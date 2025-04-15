@@ -1,45 +1,42 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import { AppModule } from './app/app.module';
-import { JwtAuthGuard } from './shared/guards/jwt-auth.guard';
 import { Logger } from '@nestjs/common';
-import MoleculerConfig from '../moleculer.config';
-import { ServiceBroker } from 'moleculer';
-import cookieParser from 'cookie-parser';
-import csurf from 'csurf';
-import helmet from 'helmet';
+import { NestFactory } from '@nestjs/core';
 
 async function bootstrap() {
-  const broker = new ServiceBroker(MoleculerConfig);
-  await broker.start();
+  Logger.log(`SERVICE_TRANSPORTER: ${process.env.SERVICE_TRANSPORTER}`);
+  Logger.log(`SERVICE_NAMESPACE: ${process.env.SERVICE_NAMESPACE}`);
+  Logger.log(`SERVICE_NODE_ID: ${process.env.SERVICE_NODE_ID}`);
 
-  const app = await NestFactory.create(AppModule);
+  try {
+    const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+      AppModule,
+      {
+        transport: Transport.NATS,
+        options: {
+          servers: [process.env.SERVICE_TRANSPORTER || 'nats://localhost:4222'],
+          queue: process.env.SERVICE_NAMESPACE || 'dev',
+          name: process.env.SERVICE_NODE_ID || 'auth-service',
+          timeout: 30000,
+          reconnect: true,
+          maxReconnectAttempts: -1,
+          reconnectTimeWait: 1000,
+        },
+      }
+    );
 
-  app.use(helmet());
-  app.use(cookieParser());
-  app.use(
-    csurf({
-      cookie: {
-        httpOnly: false,
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-      },
-    })
-  );
+    Logger.log('Запускаем микросервис аутентификации...');
 
-  const reflector = app.get(Reflector);
+    await app.listen();
 
-  app.useGlobalGuards(new JwtAuthGuard(reflector));
-
-  const globalPrefix = process.env.GLOBAL_PREFIX;
-  const port = process.env.PORT || 4000;
-
-  app.setGlobalPrefix(globalPrefix);
-  await app.listen(port);
-
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+    Logger.log(
+      `🚀 Сервис аутентификации запущен [${process.env.SERVICE_NODE_ID}] в namespace: ${process.env.SERVICE_NAMESPACE}`
+    );
+  } catch (error) {
+    Logger.error(`Ошибка запуска микросервиса: ${error.message}`, error.stack);
+    process.exit(1);
+  }
 }
 
 bootstrap();
