@@ -9,41 +9,49 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   authId      String
-  phoneNumber String?  @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  phoneNumber String?     @unique
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  UserStore   UserStore[]
 
-  Store Store[]
-
+  @@index([id])
+  @@index([authId])
+  @@index([phoneNumber])
   @@map("users")
 }
 
 model Store {
   id          String   @id @default(uuid())
+  slug        String   @unique
   name        String
   description String?
-  ownerId     String
   logoUrl     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   MarketplaceToken MarketplaceToken[]
+  UserStore        UserStore[]
 
-  owner User @relation(fields: [ownerId], references: [id])
-
+  @@index([id])
+  @@index([slug])
   @@map("stores")
 }
 
 model UserStore {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   userId    String
   storeId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role      StoreRole
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  store Store @relation(fields: [storeId], references: [id])
 
   @@unique([userId, storeId])
+  @@index([userId, storeId])
   @@map("user_stores")
 }
 
@@ -57,6 +65,7 @@ model MarketplaceToken {
 
   store Store @relation(fields: [storeId], references: [id])
 
+  @@index([storeId, marketplace])
   @@map("marketplace_tokens")
 }
 
@@ -64,4 +73,11 @@ enum Marketplace {
   WILDBERRIES
   OZON
   YANDEX
+}
+
+enum StoreRole {
+  OWNER
+  ADMIN
+  MANAGER
+  VIEWER
 }

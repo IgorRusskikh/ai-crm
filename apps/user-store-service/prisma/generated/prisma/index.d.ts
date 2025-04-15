@@ -46,11 +46,25 @@ export namespace $Enums {
 
 export type Marketplace = (typeof Marketplace)[keyof typeof Marketplace]
 
+
+export const StoreRole: {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  VIEWER: 'VIEWER'
+};
+
+export type StoreRole = (typeof StoreRole)[keyof typeof StoreRole]
+
 }
 
 export type Marketplace = $Enums.Marketplace
 
 export const Marketplace: typeof $Enums.Marketplace
+
+export type StoreRole = $Enums.StoreRole
+
+export const StoreRole: typeof $Enums.StoreRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1160,11 +1174,11 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    Store: number
+    UserStore: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Store?: boolean | UserCountOutputTypeCountStoreArgs
+    UserStore?: boolean | UserCountOutputTypeCountUserStoreArgs
   }
 
   // Custom InputTypes
@@ -1181,8 +1195,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountStoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StoreWhereInput
+  export type UserCountOutputTypeCountUserStoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStoreWhereInput
   }
 
 
@@ -1192,10 +1206,12 @@ export namespace Prisma {
 
   export type StoreCountOutputType = {
     MarketplaceToken: number
+    UserStore: number
   }
 
   export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     MarketplaceToken?: boolean | StoreCountOutputTypeCountMarketplaceTokenArgs
+    UserStore?: boolean | StoreCountOutputTypeCountUserStoreArgs
   }
 
   // Custom InputTypes
@@ -1214,6 +1230,13 @@ export namespace Prisma {
    */
   export type StoreCountOutputTypeCountMarketplaceTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MarketplaceTokenWhereInput
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountUserStoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStoreWhereInput
   }
 
 
@@ -1385,7 +1408,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Store?: boolean | User$StoreArgs<ExtArgs>
+    UserStore?: boolean | User$UserStoreArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1415,7 +1438,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "authId" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Store?: boolean | User$StoreArgs<ExtArgs>
+    UserStore?: boolean | User$UserStoreArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1424,7 +1447,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      Store: Prisma.$StorePayload<ExtArgs>[]
+      UserStore: Prisma.$UserStorePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1826,7 +1849,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Store<T extends User$StoreArgs<ExtArgs> = {}>(args?: Subset<T, User$StoreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserStore<T extends User$UserStoreArgs<ExtArgs> = {}>(args?: Subset<T, User$UserStoreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2249,27 +2272,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.Store
+   * User.UserStore
    */
-  export type User$StoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$UserStoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Store
+     * Select specific fields to fetch from the UserStore
      */
-    select?: StoreSelect<ExtArgs> | null
+    select?: UserStoreSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Store
+     * Omit specific fields from the UserStore
      */
-    omit?: StoreOmit<ExtArgs> | null
+    omit?: UserStoreOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StoreInclude<ExtArgs> | null
-    where?: StoreWhereInput
-    orderBy?: StoreOrderByWithRelationInput | StoreOrderByWithRelationInput[]
-    cursor?: StoreWhereUniqueInput
+    include?: UserStoreInclude<ExtArgs> | null
+    where?: UserStoreWhereInput
+    orderBy?: UserStoreOrderByWithRelationInput | UserStoreOrderByWithRelationInput[]
+    cursor?: UserStoreWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: StoreScalarFieldEnum | StoreScalarFieldEnum[]
+    distinct?: UserStoreScalarFieldEnum | UserStoreScalarFieldEnum[]
   }
 
   /**
@@ -2303,9 +2326,9 @@ export namespace Prisma {
 
   export type StoreMinAggregateOutputType = {
     id: string | null
+    slug: string | null
     name: string | null
     description: string | null
-    ownerId: string | null
     logoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2313,9 +2336,9 @@ export namespace Prisma {
 
   export type StoreMaxAggregateOutputType = {
     id: string | null
+    slug: string | null
     name: string | null
     description: string | null
-    ownerId: string | null
     logoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2323,9 +2346,9 @@ export namespace Prisma {
 
   export type StoreCountAggregateOutputType = {
     id: number
+    slug: number
     name: number
     description: number
-    ownerId: number
     logoUrl: number
     createdAt: number
     updatedAt: number
@@ -2335,9 +2358,9 @@ export namespace Prisma {
 
   export type StoreMinAggregateInputType = {
     id?: true
+    slug?: true
     name?: true
     description?: true
-    ownerId?: true
     logoUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -2345,9 +2368,9 @@ export namespace Prisma {
 
   export type StoreMaxAggregateInputType = {
     id?: true
+    slug?: true
     name?: true
     description?: true
-    ownerId?: true
     logoUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -2355,9 +2378,9 @@ export namespace Prisma {
 
   export type StoreCountAggregateInputType = {
     id?: true
+    slug?: true
     name?: true
     description?: true
-    ownerId?: true
     logoUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -2438,9 +2461,9 @@ export namespace Prisma {
 
   export type StoreGroupByOutputType = {
     id: string
+    slug: string
     name: string
     description: string | null
-    ownerId: string
     logoUrl: string | null
     createdAt: Date
     updatedAt: Date
@@ -2465,73 +2488,67 @@ export namespace Prisma {
 
   export type StoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     name?: boolean
     description?: boolean
-    ownerId?: boolean
     logoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     MarketplaceToken?: boolean | Store$MarketplaceTokenArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    UserStore?: boolean | Store$UserStoreArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     name?: boolean
     description?: boolean
-    ownerId?: boolean
     logoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     name?: boolean
     description?: boolean
-    ownerId?: boolean
     logoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectScalar = {
     id?: boolean
+    slug?: boolean
     name?: boolean
     description?: boolean
-    ownerId?: boolean
     logoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "ownerId" | "logoUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["store"]>
+  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "name" | "description" | "logoUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["store"]>
   export type StoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     MarketplaceToken?: boolean | Store$MarketplaceTokenArgs<ExtArgs>
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    UserStore?: boolean | Store$UserStoreArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type StoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type StoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type StoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type StoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $StorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Store"
     objects: {
       MarketplaceToken: Prisma.$MarketplaceTokenPayload<ExtArgs>[]
-      owner: Prisma.$UserPayload<ExtArgs>
+      UserStore: Prisma.$UserStorePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      slug: string
       name: string
       description: string | null
-      ownerId: string
       logoUrl: string | null
       createdAt: Date
       updatedAt: Date
@@ -2930,7 +2947,7 @@ export namespace Prisma {
   export interface Prisma__StoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     MarketplaceToken<T extends Store$MarketplaceTokenArgs<ExtArgs> = {}>(args?: Subset<T, Store$MarketplaceTokenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketplaceTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    UserStore<T extends Store$UserStoreArgs<ExtArgs> = {}>(args?: Subset<T, Store$UserStoreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2961,9 +2978,9 @@ export namespace Prisma {
    */
   interface StoreFieldRefs {
     readonly id: FieldRef<"Store", 'String'>
+    readonly slug: FieldRef<"Store", 'String'>
     readonly name: FieldRef<"Store", 'String'>
     readonly description: FieldRef<"Store", 'String'>
-    readonly ownerId: FieldRef<"Store", 'String'>
     readonly logoUrl: FieldRef<"Store", 'String'>
     readonly createdAt: FieldRef<"Store", 'DateTime'>
     readonly updatedAt: FieldRef<"Store", 'DateTime'>
@@ -3216,10 +3233,6 @@ export namespace Prisma {
      */
     data: StoreCreateManyInput | StoreCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StoreIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3290,10 +3303,6 @@ export namespace Prisma {
      * Limit how many Stores to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StoreIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3387,6 +3396,30 @@ export namespace Prisma {
   }
 
   /**
+   * Store.UserStore
+   */
+  export type Store$UserStoreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStore
+     */
+    select?: UserStoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStore
+     */
+    omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    where?: UserStoreWhereInput
+    orderBy?: UserStoreOrderByWithRelationInput | UserStoreOrderByWithRelationInput[]
+    cursor?: UserStoreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserStoreScalarFieldEnum | UserStoreScalarFieldEnum[]
+  }
+
+  /**
    * Store without action
    */
   export type StoreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3419,6 +3452,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     storeId: string | null
+    role: $Enums.StoreRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3427,6 +3461,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     storeId: string | null
+    role: $Enums.StoreRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3435,6 +3470,7 @@ export namespace Prisma {
     id: number
     userId: number
     storeId: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3445,6 +3481,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     storeId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3453,6 +3490,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     storeId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3461,6 +3499,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     storeId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3542,6 +3581,7 @@ export namespace Prisma {
     id: string
     userId: string
     storeId: string
+    role: $Enums.StoreRole
     createdAt: Date
     updatedAt: Date
     _count: UserStoreCountAggregateOutputType | null
@@ -3567,43 +3607,69 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     storeId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userStore"]>
 
   export type UserStoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     storeId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userStore"]>
 
   export type UserStoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     storeId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userStore"]>
 
   export type UserStoreSelectScalar = {
     id?: boolean
     userId?: boolean
     storeId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserStoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "createdAt" | "updatedAt", ExtArgs["result"]["userStore"]>
+  export type UserStoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["userStore"]>
+  export type UserStoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type UserStoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type UserStoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
 
   export type $UserStorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserStore"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      store: Prisma.$StorePayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       storeId: string
+      role: $Enums.StoreRole
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userStore"]>
@@ -4000,6 +4066,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserStoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4032,6 +4100,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserStore", 'String'>
     readonly userId: FieldRef<"UserStore", 'String'>
     readonly storeId: FieldRef<"UserStore", 'String'>
+    readonly role: FieldRef<"UserStore", 'StoreRole'>
     readonly createdAt: FieldRef<"UserStore", 'DateTime'>
     readonly updatedAt: FieldRef<"UserStore", 'DateTime'>
   }
@@ -4051,6 +4120,10 @@ export namespace Prisma {
      */
     omit?: UserStoreOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    /**
      * Filter, which UserStore to fetch.
      */
     where: UserStoreWhereUniqueInput
@@ -4069,6 +4142,10 @@ export namespace Prisma {
      */
     omit?: UserStoreOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    /**
      * Filter, which UserStore to fetch.
      */
     where: UserStoreWhereUniqueInput
@@ -4086,6 +4163,10 @@ export namespace Prisma {
      * Omit specific fields from the UserStore
      */
     omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
     /**
      * Filter, which UserStore to fetch.
      */
@@ -4135,6 +4216,10 @@ export namespace Prisma {
      */
     omit?: UserStoreOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    /**
      * Filter, which UserStore to fetch.
      */
     where?: UserStoreWhereInput
@@ -4183,6 +4268,10 @@ export namespace Prisma {
      */
     omit?: UserStoreOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    /**
      * Filter, which UserStores to fetch.
      */
     where?: UserStoreWhereInput
@@ -4226,6 +4315,10 @@ export namespace Prisma {
      */
     omit?: UserStoreOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
+    /**
      * The data needed to create a UserStore.
      */
     data: XOR<UserStoreCreateInput, UserStoreUncheckedCreateInput>
@@ -4259,6 +4352,10 @@ export namespace Prisma {
      */
     data: UserStoreCreateManyInput | UserStoreCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4273,6 +4370,10 @@ export namespace Prisma {
      * Omit specific fields from the UserStore
      */
     omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
     /**
      * The data needed to update a UserStore.
      */
@@ -4325,6 +4426,10 @@ export namespace Prisma {
      * Limit how many UserStores to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4339,6 +4444,10 @@ export namespace Prisma {
      * Omit specific fields from the UserStore
      */
     omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
     /**
      * The filter to search for the UserStore to update in case it exists.
      */
@@ -4365,6 +4474,10 @@ export namespace Prisma {
      * Omit specific fields from the UserStore
      */
     omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
     /**
      * Filter which UserStore to delete.
      */
@@ -4397,6 +4510,10 @@ export namespace Prisma {
      * Omit specific fields from the UserStore
      */
     omit?: UserStoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStoreInclude<ExtArgs> | null
   }
 
 
@@ -5498,9 +5615,9 @@ export namespace Prisma {
 
   export const StoreScalarFieldEnum: {
     id: 'id',
+    slug: 'slug',
     name: 'name',
     description: 'description',
-    ownerId: 'ownerId',
     logoUrl: 'logoUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -5513,6 +5630,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     storeId: 'storeId',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5590,6 +5708,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'StoreRole'
+   */
+  export type EnumStoreRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoreRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'StoreRole[]'
+   */
+  export type ListEnumStoreRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoreRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Marketplace'
    */
   export type EnumMarketplaceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Marketplace'>
@@ -5629,7 +5761,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Store?: StoreListRelationFilter
+    UserStore?: UserStoreListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5638,7 +5770,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Store?: StoreOrderByRelationAggregateInput
+    UserStore?: UserStoreOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5650,7 +5782,7 @@ export namespace Prisma {
     authId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Store?: StoreListRelationFilter
+    UserStore?: UserStoreListRelationFilter
   }, "id" | "phoneNumber">
 
   export type UserOrderByWithAggregationInput = {
@@ -5680,48 +5812,48 @@ export namespace Prisma {
     OR?: StoreWhereInput[]
     NOT?: StoreWhereInput | StoreWhereInput[]
     id?: StringFilter<"Store"> | string
+    slug?: StringFilter<"Store"> | string
     name?: StringFilter<"Store"> | string
     description?: StringNullableFilter<"Store"> | string | null
-    ownerId?: StringFilter<"Store"> | string
     logoUrl?: StringNullableFilter<"Store"> | string | null
     createdAt?: DateTimeFilter<"Store"> | Date | string
     updatedAt?: DateTimeFilter<"Store"> | Date | string
     MarketplaceToken?: MarketplaceTokenListRelationFilter
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    UserStore?: UserStoreListRelationFilter
   }
 
   export type StoreOrderByWithRelationInput = {
     id?: SortOrder
+    slug?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    ownerId?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     MarketplaceToken?: MarketplaceTokenOrderByRelationAggregateInput
-    owner?: UserOrderByWithRelationInput
+    UserStore?: UserStoreOrderByRelationAggregateInput
   }
 
   export type StoreWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    slug?: string
     AND?: StoreWhereInput | StoreWhereInput[]
     OR?: StoreWhereInput[]
     NOT?: StoreWhereInput | StoreWhereInput[]
     name?: StringFilter<"Store"> | string
     description?: StringNullableFilter<"Store"> | string | null
-    ownerId?: StringFilter<"Store"> | string
     logoUrl?: StringNullableFilter<"Store"> | string | null
     createdAt?: DateTimeFilter<"Store"> | Date | string
     updatedAt?: DateTimeFilter<"Store"> | Date | string
     MarketplaceToken?: MarketplaceTokenListRelationFilter
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+    UserStore?: UserStoreListRelationFilter
+  }, "id" | "slug">
 
   export type StoreOrderByWithAggregationInput = {
     id?: SortOrder
+    slug?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    ownerId?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5735,9 +5867,9 @@ export namespace Prisma {
     OR?: StoreScalarWhereWithAggregatesInput[]
     NOT?: StoreScalarWhereWithAggregatesInput | StoreScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Store"> | string
+    slug?: StringWithAggregatesFilter<"Store"> | string
     name?: StringWithAggregatesFilter<"Store"> | string
     description?: StringNullableWithAggregatesFilter<"Store"> | string | null
-    ownerId?: StringWithAggregatesFilter<"Store"> | string
     logoUrl?: StringNullableWithAggregatesFilter<"Store"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
@@ -5750,16 +5882,22 @@ export namespace Prisma {
     id?: StringFilter<"UserStore"> | string
     userId?: StringFilter<"UserStore"> | string
     storeId?: StringFilter<"UserStore"> | string
+    role?: EnumStoreRoleFilter<"UserStore"> | $Enums.StoreRole
     createdAt?: DateTimeFilter<"UserStore"> | Date | string
     updatedAt?: DateTimeFilter<"UserStore"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
   }
 
   export type UserStoreOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     storeId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
   }
 
   export type UserStoreWhereUniqueInput = Prisma.AtLeast<{
@@ -5770,14 +5908,18 @@ export namespace Prisma {
     NOT?: UserStoreWhereInput | UserStoreWhereInput[]
     userId?: StringFilter<"UserStore"> | string
     storeId?: StringFilter<"UserStore"> | string
+    role?: EnumStoreRoleFilter<"UserStore"> | $Enums.StoreRole
     createdAt?: DateTimeFilter<"UserStore"> | Date | string
     updatedAt?: DateTimeFilter<"UserStore"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
   }, "id" | "userId_storeId">
 
   export type UserStoreOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     storeId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserStoreCountOrderByAggregateInput
@@ -5792,6 +5934,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserStore"> | string
     userId?: StringWithAggregatesFilter<"UserStore"> | string
     storeId?: StringWithAggregatesFilter<"UserStore"> | string
+    role?: EnumStoreRoleWithAggregatesFilter<"UserStore"> | $Enums.StoreRole
     createdAt?: DateTimeWithAggregatesFilter<"UserStore"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserStore"> | Date | string
   }
@@ -5862,7 +6005,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Store?: StoreCreateNestedManyWithoutOwnerInput
+    UserStore?: UserStoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5871,7 +6014,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Store?: StoreUncheckedCreateNestedManyWithoutOwnerInput
+    UserStore?: UserStoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5880,7 +6023,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Store?: StoreUpdateManyWithoutOwnerNestedInput
+    UserStore?: UserStoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5889,7 +6032,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Store?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
+    UserStore?: UserStoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5918,53 +6061,57 @@ export namespace Prisma {
 
   export type StoreCreateInput = {
     id?: string
+    slug: string
     name: string
     description?: string | null
     logoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     MarketplaceToken?: MarketplaceTokenCreateNestedManyWithoutStoreInput
-    owner: UserCreateNestedOneWithoutStoreInput
+    UserStore?: UserStoreCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateInput = {
     id?: string
+    slug: string
     name: string
     description?: string | null
-    ownerId: string
     logoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     MarketplaceToken?: MarketplaceTokenUncheckedCreateNestedManyWithoutStoreInput
+    UserStore?: UserStoreUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MarketplaceToken?: MarketplaceTokenUpdateManyWithoutStoreNestedInput
-    owner?: UserUpdateOneRequiredWithoutStoreNestedInput
+    UserStore?: UserStoreUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MarketplaceToken?: MarketplaceTokenUncheckedUpdateManyWithoutStoreNestedInput
+    UserStore?: UserStoreUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateManyInput = {
     id?: string
+    slug: string
     name: string
     description?: string | null
-    ownerId: string
     logoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5972,6 +6119,7 @@ export namespace Prisma {
 
   export type StoreUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5981,9 +6129,9 @@ export namespace Prisma {
 
   export type StoreUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5991,32 +6139,36 @@ export namespace Prisma {
 
   export type UserStoreCreateInput = {
     id?: string
-    userId: string
-    storeId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserStoreInput
+    store: StoreCreateNestedOneWithoutUserStoreInput
   }
 
   export type UserStoreUncheckedCreateInput = {
     id?: string
     userId: string
     storeId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserStoreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserStoreNestedInput
+    store?: StoreUpdateOneRequiredWithoutUserStoreNestedInput
   }
 
   export type UserStoreUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6025,14 +6177,14 @@ export namespace Prisma {
     id?: string
     userId: string
     storeId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserStoreUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6041,6 +6193,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6148,10 +6301,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type StoreListRelationFilter = {
-    every?: StoreWhereInput
-    some?: StoreWhereInput
-    none?: StoreWhereInput
+  export type UserStoreListRelationFilter = {
+    every?: UserStoreWhereInput
+    some?: UserStoreWhereInput
+    none?: UserStoreWhereInput
   }
 
   export type SortOrderInput = {
@@ -6159,7 +6312,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type StoreOrderByRelationAggregateInput = {
+  export type UserStoreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6243,20 +6396,15 @@ export namespace Prisma {
     none?: MarketplaceTokenWhereInput
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type MarketplaceTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type StoreCountOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    ownerId?: SortOrder
     logoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6264,9 +6412,9 @@ export namespace Prisma {
 
   export type StoreMaxOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    ownerId?: SortOrder
     logoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6274,12 +6422,29 @@ export namespace Prisma {
 
   export type StoreMinOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    ownerId?: SortOrder
     logoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumStoreRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoreRole | EnumStoreRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoreRoleFilter<$PrismaModel> | $Enums.StoreRole
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type StoreScalarRelationFilter = {
+    is?: StoreWhereInput
+    isNot?: StoreWhereInput
   }
 
   export type UserStoreUserIdStoreIdCompoundUniqueInput = {
@@ -6291,6 +6456,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     storeId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6299,6 +6465,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     storeId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6307,8 +6474,19 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     storeId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumStoreRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoreRole | EnumStoreRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoreRoleWithAggregatesFilter<$PrismaModel> | $Enums.StoreRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoreRoleFilter<$PrismaModel>
+    _max?: NestedEnumStoreRoleFilter<$PrismaModel>
   }
 
   export type EnumMarketplaceFilter<$PrismaModel = never> = {
@@ -6316,11 +6494,6 @@ export namespace Prisma {
     in?: $Enums.Marketplace[] | ListEnumMarketplaceFieldRefInput<$PrismaModel>
     notIn?: $Enums.Marketplace[] | ListEnumMarketplaceFieldRefInput<$PrismaModel>
     not?: NestedEnumMarketplaceFilter<$PrismaModel> | $Enums.Marketplace
-  }
-
-  export type StoreScalarRelationFilter = {
-    is?: StoreWhereInput
-    isNot?: StoreWhereInput
   }
 
   export type MarketplaceTokenCountOrderByAggregateInput = {
@@ -6360,18 +6533,18 @@ export namespace Prisma {
     _max?: NestedEnumMarketplaceFilter<$PrismaModel>
   }
 
-  export type StoreCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
-    createMany?: StoreCreateManyOwnerInputEnvelope
-    connect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
+  export type UserStoreCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput> | UserStoreCreateWithoutUserInput[] | UserStoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutUserInput | UserStoreCreateOrConnectWithoutUserInput[]
+    createMany?: UserStoreCreateManyUserInputEnvelope
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
   }
 
-  export type StoreUncheckedCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
-    createMany?: StoreCreateManyOwnerInputEnvelope
-    connect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
+  export type UserStoreUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput> | UserStoreCreateWithoutUserInput[] | UserStoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutUserInput | UserStoreCreateOrConnectWithoutUserInput[]
+    createMany?: UserStoreCreateManyUserInputEnvelope
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6386,32 +6559,32 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type StoreUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
-    upsert?: StoreUpsertWithWhereUniqueWithoutOwnerInput | StoreUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: StoreCreateManyOwnerInputEnvelope
-    set?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    disconnect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    delete?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    connect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    update?: StoreUpdateWithWhereUniqueWithoutOwnerInput | StoreUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: StoreUpdateManyWithWhereWithoutOwnerInput | StoreUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: StoreScalarWhereInput | StoreScalarWhereInput[]
+  export type UserStoreUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput> | UserStoreCreateWithoutUserInput[] | UserStoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutUserInput | UserStoreCreateOrConnectWithoutUserInput[]
+    upsert?: UserStoreUpsertWithWhereUniqueWithoutUserInput | UserStoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserStoreCreateManyUserInputEnvelope
+    set?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    disconnect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    delete?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    update?: UserStoreUpdateWithWhereUniqueWithoutUserInput | UserStoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserStoreUpdateManyWithWhereWithoutUserInput | UserStoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
   }
 
-  export type StoreUncheckedUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
-    upsert?: StoreUpsertWithWhereUniqueWithoutOwnerInput | StoreUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: StoreCreateManyOwnerInputEnvelope
-    set?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    disconnect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    delete?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    connect?: StoreWhereUniqueInput | StoreWhereUniqueInput[]
-    update?: StoreUpdateWithWhereUniqueWithoutOwnerInput | StoreUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: StoreUpdateManyWithWhereWithoutOwnerInput | StoreUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: StoreScalarWhereInput | StoreScalarWhereInput[]
+  export type UserStoreUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput> | UserStoreCreateWithoutUserInput[] | UserStoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutUserInput | UserStoreCreateOrConnectWithoutUserInput[]
+    upsert?: UserStoreUpsertWithWhereUniqueWithoutUserInput | UserStoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserStoreCreateManyUserInputEnvelope
+    set?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    disconnect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    delete?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    update?: UserStoreUpdateWithWhereUniqueWithoutUserInput | UserStoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserStoreUpdateManyWithWhereWithoutUserInput | UserStoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
   }
 
   export type MarketplaceTokenCreateNestedManyWithoutStoreInput = {
@@ -6421,10 +6594,11 @@ export namespace Prisma {
     connect?: MarketplaceTokenWhereUniqueInput | MarketplaceTokenWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutStoreInput = {
-    create?: XOR<UserCreateWithoutStoreInput, UserUncheckedCreateWithoutStoreInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStoreInput
-    connect?: UserWhereUniqueInput
+  export type UserStoreCreateNestedManyWithoutStoreInput = {
+    create?: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput> | UserStoreCreateWithoutStoreInput[] | UserStoreUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutStoreInput | UserStoreCreateOrConnectWithoutStoreInput[]
+    createMany?: UserStoreCreateManyStoreInputEnvelope
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
   }
 
   export type MarketplaceTokenUncheckedCreateNestedManyWithoutStoreInput = {
@@ -6432,6 +6606,13 @@ export namespace Prisma {
     connectOrCreate?: MarketplaceTokenCreateOrConnectWithoutStoreInput | MarketplaceTokenCreateOrConnectWithoutStoreInput[]
     createMany?: MarketplaceTokenCreateManyStoreInputEnvelope
     connect?: MarketplaceTokenWhereUniqueInput | MarketplaceTokenWhereUniqueInput[]
+  }
+
+  export type UserStoreUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput> | UserStoreCreateWithoutStoreInput[] | UserStoreUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutStoreInput | UserStoreCreateOrConnectWithoutStoreInput[]
+    createMany?: UserStoreCreateManyStoreInputEnvelope
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
   }
 
   export type MarketplaceTokenUpdateManyWithoutStoreNestedInput = {
@@ -6448,12 +6629,18 @@ export namespace Prisma {
     deleteMany?: MarketplaceTokenScalarWhereInput | MarketplaceTokenScalarWhereInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutStoreNestedInput = {
-    create?: XOR<UserCreateWithoutStoreInput, UserUncheckedCreateWithoutStoreInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStoreInput
-    upsert?: UserUpsertWithoutStoreInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStoreInput, UserUpdateWithoutStoreInput>, UserUncheckedUpdateWithoutStoreInput>
+  export type UserStoreUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput> | UserStoreCreateWithoutStoreInput[] | UserStoreUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutStoreInput | UserStoreCreateOrConnectWithoutStoreInput[]
+    upsert?: UserStoreUpsertWithWhereUniqueWithoutStoreInput | UserStoreUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: UserStoreCreateManyStoreInputEnvelope
+    set?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    disconnect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    delete?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    update?: UserStoreUpdateWithWhereUniqueWithoutStoreInput | UserStoreUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: UserStoreUpdateManyWithWhereWithoutStoreInput | UserStoreUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
   }
 
   export type MarketplaceTokenUncheckedUpdateManyWithoutStoreNestedInput = {
@@ -6468,6 +6655,52 @@ export namespace Prisma {
     update?: MarketplaceTokenUpdateWithWhereUniqueWithoutStoreInput | MarketplaceTokenUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: MarketplaceTokenUpdateManyWithWhereWithoutStoreInput | MarketplaceTokenUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: MarketplaceTokenScalarWhereInput | MarketplaceTokenScalarWhereInput[]
+  }
+
+  export type UserStoreUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput> | UserStoreCreateWithoutStoreInput[] | UserStoreUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: UserStoreCreateOrConnectWithoutStoreInput | UserStoreCreateOrConnectWithoutStoreInput[]
+    upsert?: UserStoreUpsertWithWhereUniqueWithoutStoreInput | UserStoreUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: UserStoreCreateManyStoreInputEnvelope
+    set?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    disconnect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    delete?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    connect?: UserStoreWhereUniqueInput | UserStoreWhereUniqueInput[]
+    update?: UserStoreUpdateWithWhereUniqueWithoutStoreInput | UserStoreUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: UserStoreUpdateManyWithWhereWithoutStoreInput | UserStoreUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutUserStoreInput = {
+    create?: XOR<UserCreateWithoutUserStoreInput, UserUncheckedCreateWithoutUserStoreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserStoreInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutUserStoreInput = {
+    create?: XOR<StoreCreateWithoutUserStoreInput, StoreUncheckedCreateWithoutUserStoreInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutUserStoreInput
+    connect?: StoreWhereUniqueInput
+  }
+
+  export type EnumStoreRoleFieldUpdateOperationsInput = {
+    set?: $Enums.StoreRole
+  }
+
+  export type UserUpdateOneRequiredWithoutUserStoreNestedInput = {
+    create?: XOR<UserCreateWithoutUserStoreInput, UserUncheckedCreateWithoutUserStoreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserStoreInput
+    upsert?: UserUpsertWithoutUserStoreInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserStoreInput, UserUpdateWithoutUserStoreInput>, UserUncheckedUpdateWithoutUserStoreInput>
+  }
+
+  export type StoreUpdateOneRequiredWithoutUserStoreNestedInput = {
+    create?: XOR<StoreCreateWithoutUserStoreInput, StoreUncheckedCreateWithoutUserStoreInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutUserStoreInput
+    upsert?: StoreUpsertWithoutUserStoreInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutUserStoreInput, StoreUpdateWithoutUserStoreInput>, StoreUncheckedUpdateWithoutUserStoreInput>
   }
 
   export type StoreCreateNestedOneWithoutMarketplaceTokenInput = {
@@ -6597,6 +6830,23 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumStoreRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoreRole | EnumStoreRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoreRoleFilter<$PrismaModel> | $Enums.StoreRole
+  }
+
+  export type NestedEnumStoreRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StoreRole | EnumStoreRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StoreRole[] | ListEnumStoreRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumStoreRoleWithAggregatesFilter<$PrismaModel> | $Enums.StoreRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStoreRoleFilter<$PrismaModel>
+    _max?: NestedEnumStoreRoleFilter<$PrismaModel>
+  }
+
   export type NestedEnumMarketplaceFilter<$PrismaModel = never> = {
     equals?: $Enums.Marketplace | EnumMarketplaceFieldRefInput<$PrismaModel>
     in?: $Enums.Marketplace[] | ListEnumMarketplaceFieldRefInput<$PrismaModel>
@@ -6614,63 +6864,58 @@ export namespace Prisma {
     _max?: NestedEnumMarketplaceFilter<$PrismaModel>
   }
 
-  export type StoreCreateWithoutOwnerInput = {
+  export type UserStoreCreateWithoutUserInput = {
     id?: string
-    name: string
-    description?: string | null
-    logoUrl?: string | null
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    MarketplaceToken?: MarketplaceTokenCreateNestedManyWithoutStoreInput
+    store: StoreCreateNestedOneWithoutUserStoreInput
   }
 
-  export type StoreUncheckedCreateWithoutOwnerInput = {
+  export type UserStoreUncheckedCreateWithoutUserInput = {
     id?: string
-    name: string
-    description?: string | null
-    logoUrl?: string | null
+    storeId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
-    MarketplaceToken?: MarketplaceTokenUncheckedCreateNestedManyWithoutStoreInput
   }
 
-  export type StoreCreateOrConnectWithoutOwnerInput = {
-    where: StoreWhereUniqueInput
-    create: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput>
+  export type UserStoreCreateOrConnectWithoutUserInput = {
+    where: UserStoreWhereUniqueInput
+    create: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput>
   }
 
-  export type StoreCreateManyOwnerInputEnvelope = {
-    data: StoreCreateManyOwnerInput | StoreCreateManyOwnerInput[]
+  export type UserStoreCreateManyUserInputEnvelope = {
+    data: UserStoreCreateManyUserInput | UserStoreCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type StoreUpsertWithWhereUniqueWithoutOwnerInput = {
-    where: StoreWhereUniqueInput
-    update: XOR<StoreUpdateWithoutOwnerInput, StoreUncheckedUpdateWithoutOwnerInput>
-    create: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput>
+  export type UserStoreUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserStoreWhereUniqueInput
+    update: XOR<UserStoreUpdateWithoutUserInput, UserStoreUncheckedUpdateWithoutUserInput>
+    create: XOR<UserStoreCreateWithoutUserInput, UserStoreUncheckedCreateWithoutUserInput>
   }
 
-  export type StoreUpdateWithWhereUniqueWithoutOwnerInput = {
-    where: StoreWhereUniqueInput
-    data: XOR<StoreUpdateWithoutOwnerInput, StoreUncheckedUpdateWithoutOwnerInput>
+  export type UserStoreUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserStoreWhereUniqueInput
+    data: XOR<UserStoreUpdateWithoutUserInput, UserStoreUncheckedUpdateWithoutUserInput>
   }
 
-  export type StoreUpdateManyWithWhereWithoutOwnerInput = {
-    where: StoreScalarWhereInput
-    data: XOR<StoreUpdateManyMutationInput, StoreUncheckedUpdateManyWithoutOwnerInput>
+  export type UserStoreUpdateManyWithWhereWithoutUserInput = {
+    where: UserStoreScalarWhereInput
+    data: XOR<UserStoreUpdateManyMutationInput, UserStoreUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type StoreScalarWhereInput = {
-    AND?: StoreScalarWhereInput | StoreScalarWhereInput[]
-    OR?: StoreScalarWhereInput[]
-    NOT?: StoreScalarWhereInput | StoreScalarWhereInput[]
-    id?: StringFilter<"Store"> | string
-    name?: StringFilter<"Store"> | string
-    description?: StringNullableFilter<"Store"> | string | null
-    ownerId?: StringFilter<"Store"> | string
-    logoUrl?: StringNullableFilter<"Store"> | string | null
-    createdAt?: DateTimeFilter<"Store"> | Date | string
-    updatedAt?: DateTimeFilter<"Store"> | Date | string
+  export type UserStoreScalarWhereInput = {
+    AND?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
+    OR?: UserStoreScalarWhereInput[]
+    NOT?: UserStoreScalarWhereInput | UserStoreScalarWhereInput[]
+    id?: StringFilter<"UserStore"> | string
+    userId?: StringFilter<"UserStore"> | string
+    storeId?: StringFilter<"UserStore"> | string
+    role?: EnumStoreRoleFilter<"UserStore"> | $Enums.StoreRole
+    createdAt?: DateTimeFilter<"UserStore"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStore"> | Date | string
   }
 
   export type MarketplaceTokenCreateWithoutStoreInput = {
@@ -6699,25 +6944,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutStoreInput = {
+  export type UserStoreCreateWithoutStoreInput = {
     id?: string
-    authId: string
-    phoneNumber?: string | null
+    role: $Enums.StoreRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserStoreInput
+  }
+
+  export type UserStoreUncheckedCreateWithoutStoreInput = {
+    id?: string
+    userId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type UserUncheckedCreateWithoutStoreInput = {
-    id?: string
-    authId: string
-    phoneNumber?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type UserStoreCreateOrConnectWithoutStoreInput = {
+    where: UserStoreWhereUniqueInput
+    create: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput>
   }
 
-  export type UserCreateOrConnectWithoutStoreInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutStoreInput, UserUncheckedCreateWithoutStoreInput>
+  export type UserStoreCreateManyStoreInputEnvelope = {
+    data: UserStoreCreateManyStoreInput | UserStoreCreateManyStoreInput[]
+    skipDuplicates?: boolean
   }
 
   export type MarketplaceTokenUpsertWithWhereUniqueWithoutStoreInput = {
@@ -6748,18 +6998,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
   }
 
-  export type UserUpsertWithoutStoreInput = {
-    update: XOR<UserUpdateWithoutStoreInput, UserUncheckedUpdateWithoutStoreInput>
-    create: XOR<UserCreateWithoutStoreInput, UserUncheckedCreateWithoutStoreInput>
+  export type UserStoreUpsertWithWhereUniqueWithoutStoreInput = {
+    where: UserStoreWhereUniqueInput
+    update: XOR<UserStoreUpdateWithoutStoreInput, UserStoreUncheckedUpdateWithoutStoreInput>
+    create: XOR<UserStoreCreateWithoutStoreInput, UserStoreUncheckedCreateWithoutStoreInput>
+  }
+
+  export type UserStoreUpdateWithWhereUniqueWithoutStoreInput = {
+    where: UserStoreWhereUniqueInput
+    data: XOR<UserStoreUpdateWithoutStoreInput, UserStoreUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type UserStoreUpdateManyWithWhereWithoutStoreInput = {
+    where: UserStoreScalarWhereInput
+    data: XOR<UserStoreUpdateManyMutationInput, UserStoreUncheckedUpdateManyWithoutStoreInput>
+  }
+
+  export type UserCreateWithoutUserStoreInput = {
+    id?: string
+    authId: string
+    phoneNumber?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutUserStoreInput = {
+    id?: string
+    authId: string
+    phoneNumber?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutUserStoreInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserStoreInput, UserUncheckedCreateWithoutUserStoreInput>
+  }
+
+  export type StoreCreateWithoutUserStoreInput = {
+    id?: string
+    slug: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    MarketplaceToken?: MarketplaceTokenCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutUserStoreInput = {
+    id?: string
+    slug: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    MarketplaceToken?: MarketplaceTokenUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutUserStoreInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutUserStoreInput, StoreUncheckedCreateWithoutUserStoreInput>
+  }
+
+  export type UserUpsertWithoutUserStoreInput = {
+    update: XOR<UserUpdateWithoutUserStoreInput, UserUncheckedUpdateWithoutUserStoreInput>
+    create: XOR<UserCreateWithoutUserStoreInput, UserUncheckedCreateWithoutUserStoreInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutStoreInput = {
+  export type UserUpdateToOneWithWhereWithoutUserStoreInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutStoreInput, UserUncheckedUpdateWithoutStoreInput>
+    data: XOR<UserUpdateWithoutUserStoreInput, UserUncheckedUpdateWithoutUserStoreInput>
   }
 
-  export type UserUpdateWithoutStoreInput = {
+  export type UserUpdateWithoutUserStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     authId?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6767,32 +7081,67 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserUncheckedUpdateWithoutStoreInput = {
+  export type UserUncheckedUpdateWithoutUserStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     authId?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoreUpsertWithoutUserStoreInput = {
+    update: XOR<StoreUpdateWithoutUserStoreInput, StoreUncheckedUpdateWithoutUserStoreInput>
+    create: XOR<StoreCreateWithoutUserStoreInput, StoreUncheckedCreateWithoutUserStoreInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutUserStoreInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutUserStoreInput, StoreUncheckedUpdateWithoutUserStoreInput>
+  }
+
+  export type StoreUpdateWithoutUserStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    MarketplaceToken?: MarketplaceTokenUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutUserStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    MarketplaceToken?: MarketplaceTokenUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateWithoutMarketplaceTokenInput = {
     id?: string
+    slug: string
     name: string
     description?: string | null
     logoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutStoreInput
+    UserStore?: UserStoreCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutMarketplaceTokenInput = {
     id?: string
+    slug: string
     name: string
     description?: string | null
-    ownerId: string
     logoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    UserStore?: UserStoreUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutMarketplaceTokenInput = {
@@ -6813,58 +7162,54 @@ export namespace Prisma {
 
   export type StoreUpdateWithoutMarketplaceTokenInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutStoreNestedInput
+    UserStore?: UserStoreUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutMarketplaceTokenInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    UserStore?: UserStoreUncheckedUpdateManyWithoutStoreNestedInput
   }
 
-  export type StoreCreateManyOwnerInput = {
+  export type UserStoreCreateManyUserInput = {
     id?: string
-    name: string
-    description?: string | null
-    logoUrl?: string | null
+    storeId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type StoreUpdateWithoutOwnerInput = {
+  export type UserStoreUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    MarketplaceToken?: MarketplaceTokenUpdateManyWithoutStoreNestedInput
+    store?: StoreUpdateOneRequiredWithoutUserStoreNestedInput
   }
 
-  export type StoreUncheckedUpdateWithoutOwnerInput = {
+  export type UserStoreUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    MarketplaceToken?: MarketplaceTokenUncheckedUpdateManyWithoutStoreNestedInput
   }
 
-  export type StoreUncheckedUpdateManyWithoutOwnerInput = {
+  export type UserStoreUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    storeId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6873,6 +7218,14 @@ export namespace Prisma {
     id?: string
     token: string
     marketplace: $Enums.Marketplace
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserStoreCreateManyStoreInput = {
+    id?: string
+    userId: string
+    role: $Enums.StoreRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6897,6 +7250,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStoreUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserStoreNestedInput
+  }
+
+  export type UserStoreUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStoreUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumStoreRoleFieldUpdateOperationsInput | $Enums.StoreRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

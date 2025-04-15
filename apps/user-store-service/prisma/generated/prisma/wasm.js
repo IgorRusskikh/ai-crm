@@ -127,9 +127,9 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.StoreScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   name: 'name',
   description: 'description',
-  ownerId: 'ownerId',
   logoUrl: 'logoUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -139,6 +139,7 @@ exports.Prisma.UserStoreScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   storeId: 'storeId',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -166,6 +167,13 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.StoreRole = exports.$Enums.StoreRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  VIEWER: 'VIEWER'
+};
+
 exports.Marketplace = exports.$Enums.Marketplace = {
   WILDBERRIES: 'WILDBERRIES',
   OZON: 'OZON',
