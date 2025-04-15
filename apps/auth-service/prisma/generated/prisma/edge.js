@@ -193,11 +193,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgres://postgres:postgres@localhost:5432/ai-crm-auth?schema=public"
+        "value": null
       }
     }
   },
