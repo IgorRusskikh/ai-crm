@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  authId      String
+  phoneNumber String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  Store Store[]
+
+  @@map("users")
+}
+
+model Store {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  ownerId     String
+  logoUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  MarketplaceToken MarketplaceToken[]
+
+  owner User @relation(fields: [ownerId], references: [id])
+
+  @@map("stores")
+}
+
+model UserStore {
+  id        String   @id @default(uuid())
+  userId    String
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, storeId])
+  @@map("user_stores")
+}
+
+model MarketplaceToken {
+  id          String      @id @default(uuid())
+  token       String
+  marketplace Marketplace
+  storeId     String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@map("marketplace_tokens")
+}
+
+enum Marketplace {
+  WILDBERRIES
+  OZON
+  YANDEX
+}
