@@ -18,10 +18,8 @@ export class AuthController {
 
   @MessagePattern('auth.signin')
   async signin(@Payload() signInDto: SignInDto) {
-    console.log(signInDto);
-
     try {
-      const accessToken = await this.authUseCase.signIn(signInDto);
+      const accessToken = await this.authUseCase.signIn(signInDto.user);
       await this.loginHistoryService.createLoginHistory({
         user: {
           connect: {
@@ -37,20 +35,17 @@ export class AuthController {
         cookieOptions: accessTokenCookie,
       };
     } catch (error) {
+      console.error('Error in signin:', error);
       throw new RpcException(error.message || 'Ошибка при входе в систему');
     }
   }
 
   @MessagePattern('auth.signup')
   async signup(@Payload() signUpDto: SignUpDto) {
-    console.log(signUpDto);
-
     try {
       const { user, accessToken } = await this.authUseCase.signUp(
         signUpDto.user
       );
-
-      console.log({ user });
 
       await this.loginHistoryService.createLoginHistory({
         user: {
@@ -62,9 +57,8 @@ export class AuthController {
         userAgent: signUpDto.userAgent,
       });
 
-      console.log({ accessToken, cookieOptions: accessTokenCookie });
-
       return {
+        userId: user.id,
         accessToken,
         cookieOptions: accessTokenCookie,
       };
@@ -86,6 +80,25 @@ export class AuthController {
     }
   }
 
+  @MessagePattern('auth.validate-by-email')
+  async validateByEmail(@Payload() validateByEmailDto: { email: string }) {
+    const user = await this.authService.validateUserByEmail(
+      validateByEmailDto.email
+    );
+
+    if (!user) {
+      throw new RpcException('User not found');
+    }
+
+    const data = {
+      id: user.id,
+      email: user.email,
+      systemRoles: user.UserRole.map((role) => role.role),
+    };
+
+    return data;
+  }
+
   @MessagePattern('auth.validate-by-email-and-password')
   async validateByEmailAndPassword(
     @Payload()
@@ -99,8 +112,6 @@ export class AuthController {
         validateByEmailAndPasswordDto.email,
         validateByEmailAndPasswordDto.password
       );
-
-      console.log('user', user);
 
       return user;
     } catch (error) {
