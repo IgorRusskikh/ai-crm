@@ -18,6 +18,15 @@ export class UsersService {
     });
   }
 
+  async getUserByAuthId(authId: string, include?: Prisma.UserInclude) {
+    return this.prisma.user.findFirst({
+      where: {
+        authId,
+      },
+      include,
+    });
+  }
+
   async getUserByPhoneNumber<T extends Prisma.UserInclude>(
     phoneNumber: string,
     include?: T
@@ -33,6 +42,23 @@ export class UsersService {
   async createUser(user: Prisma.UserCreateInput) {
     return this.prisma.user.create({
       data: user,
+    });
+  }
+
+  async updateUser(userId: string, user: Prisma.UserUpdateInput) {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: user,
+    });
+  }
+
+  async deleteUser(id: string) {
+    return this.prisma.user.delete({
+      where: {
+        id,
+      },
     });
   }
 }
