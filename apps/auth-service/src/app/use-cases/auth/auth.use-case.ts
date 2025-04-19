@@ -23,10 +23,20 @@ export class AuthUseCase {
   ) {}
 
   async signIn(user: any) {
-    console.log('user', user);
+    if (!user.email) {
+      throw new BadRequestException({
+        message: 'Invalid user object',
+        code: 'INVALID_USER_OBJECT',
+        requestId: uuidv4(),
+        path: '/auth/signin',
+      });
+    }
+
+    const role = user.role || user.UserRole?.map((ur) => ur.role) || [];
+
     const payload = {
       email: user.email,
-      role: user.role,
+      role,
       sub: user.id,
     };
 
