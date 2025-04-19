@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id          String      @id @default(uuid())
-  authId      String
+  authId      String      @unique
   phoneNumber String?     @unique
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt

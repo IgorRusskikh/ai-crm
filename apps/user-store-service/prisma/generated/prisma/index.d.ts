@@ -5775,15 +5775,15 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    authId?: string
     phoneNumber?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    authId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     UserStore?: UserStoreListRelationFilter
-  }, "id" | "phoneNumber">
+  }, "id" | "authId" | "phoneNumber">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
