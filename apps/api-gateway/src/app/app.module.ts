@@ -1,7 +1,8 @@
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { APP_GUARD } from '@nestjs/core';
 import { FeaturesModule } from './features/controllers.module';
+import { JwtAuthGuard } from './shared/guards/jwt-auth.guard';
 import { Module } from '@nestjs/common';
 
 @Module({
@@ -12,6 +13,12 @@ import { Module } from '@nestjs/common';
     FeaturesModule,
   ],
   controllers: [],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
