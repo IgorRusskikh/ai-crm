@@ -11,7 +11,9 @@ import { Module } from '@nestjs/common';
 import { PrismaPersistence } from '../persistence/prisma.persistence';
 import { TokensService } from '../services/tokens/tokens.service';
 import { UserRoleService } from '../services/user-role/user-role.service';
+import { UsersController } from './users/users.controller';
 import { UsersService } from '../services/users/users.service';
+import { UsersUseCase } from '../../app/use-cases/users/users.use-case';
 import { readFileSync } from 'fs';
 
 @Module({
@@ -66,7 +68,7 @@ import { readFileSync } from 'fs';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, UsersController],
   providers: [
     PrismaPersistence,
     ConfigService,
@@ -76,6 +78,8 @@ import { readFileSync } from 'fs';
     TokensService,
     LoginHistoryService,
     UserRoleService,
+    UsersService,
+    UsersUseCase,
   ],
 })
 export class ControllersModule {}

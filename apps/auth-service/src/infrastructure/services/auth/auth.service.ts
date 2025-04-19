@@ -5,6 +5,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtPayload } from 'apps/auth-service/src/app/interfaces/jwt-payload';
 import { PrismaPersistence } from '../../persistence/prisma.persistence';
 import { UnauthorizedException } from 'apps/auth-service/src/shared/exceptions';
+import { User } from 'apps/auth-service/prisma/generated/prisma';
 import { UsersService } from '../users/users.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,7 +16,9 @@ export class AuthService {
     private readonly prisma: PrismaPersistence
   ) {}
 
-  async validateUserByEmail(email: string) {
+  async validateUserByEmail(
+    email: string
+  ): Promise<(User & { UserRole: { role: string }[] }) | null> {
     const user = await this.usersService.getOneByEmail({
       email,
       include: {
@@ -56,8 +59,6 @@ export class AuthService {
     try {
       const isPasswordValid = await argon2.verify(user.password, password);
 
-      console.log('isPasswordValid', isPasswordValid);
-
       if (!isPasswordValid) {
         throw new UnauthorizedException({
           message: 'Invalid password',
@@ -65,13 +66,6 @@ export class AuthService {
           requestId: uuidv4(),
         });
       }
-
-      console.log('user', {
-        id: user.id,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        role: user.UserRole.map((ur) => ur.role),
-      });
 
       const data: Omit<JwtPayload, 'sub'> = {
         id: user.id,

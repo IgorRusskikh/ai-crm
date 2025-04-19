@@ -12,7 +12,7 @@ export class UsersService {
     include,
   }: {
     id: string;
-    include: T;
+    include?: T;
   }): Promise<Prisma.UserGetPayload<{ include: T }>> {
     return await this.prisma.user.findUnique({
       where: { id },
@@ -60,6 +60,25 @@ export class UsersService {
     console.log('user', user);
     return await this.prisma.user.create({
       data: user,
+    });
+  }
+
+  async update(userId: string, user: Prisma.UserUpdateInput): Promise<User> {
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: user,
+    });
+  }
+
+  async delete(userId: string): Promise<User | null> {
+    const existsUser = await this.getOneById({ id: userId });
+
+    if (!existsUser) {
+      return null;
+    }
+
+    return await this.prisma.user.delete({
+      where: { id: userId },
     });
   }
 }
