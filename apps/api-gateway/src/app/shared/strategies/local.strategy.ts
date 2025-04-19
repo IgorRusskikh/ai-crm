@@ -18,8 +18,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(...args: any[]): Promise<any> {
     const [email, password] = args;
 
-    console.log(email, password);
-
     const user = await lastValueFrom(
       this.client.send('auth.validate-by-email-and-password', {
         email,
@@ -27,14 +25,16 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       })
     );
 
-    console.log('user', user);
-
     if (!user) {
       throw new UnauthorizedException({
         message: 'Invalid credentials',
         reason: 'Invalid credentials',
         requestId: uuidv4(),
       });
+    }
+
+    if (!user.id) {
+      console.log('Warning: User object does not contain id field');
     }
 
     return user;
