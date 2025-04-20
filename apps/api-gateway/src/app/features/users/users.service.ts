@@ -1,6 +1,8 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
+import { Services } from 'shared/src/lib/errors/error-codes';
+import { UserNotFoundError } from 'shared/src/lib/errors/users-errors';
 import { UpdateUserDto } from './users.dto';
 
 @Injectable()
@@ -68,7 +70,10 @@ export class UsersService {
     ]);
 
     if (!deletedUserUserService || !deletedUserAuthService) {
-      throw new NotFoundException('User not found');
+      return UserNotFoundError({
+        service: Services.USER,
+        message: 'User not found',
+      });
     }
 
     console.log('deletedUserUserService', deletedUserUserService);

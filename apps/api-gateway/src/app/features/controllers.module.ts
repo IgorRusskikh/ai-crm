@@ -11,6 +11,11 @@ import { JwtStrategy } from '../shared/strategies/jwt.strategy';
 import { LocalAuthGuard } from '../shared/guards/local-auth.guard';
 import { LocalStrategy } from '../shared/strategies/local.strategy';
 import { Module } from '@nestjs/common';
+import { StoreAccessGuard } from '../shared/guards/store-access.guard';
+import { StoresController } from './stores/stores.controller';
+import { StoresService } from './stores/stores.service';
+import { UserStoreController } from './user-store/user-store.controller';
+import { UserStoreService } from './user-store/user-store.service';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { readFileSync } from 'fs';
@@ -68,7 +73,12 @@ import { readFileSync } from 'fs';
       },
     }),
   ],
-  controllers: [AuthController, UsersController],
+  controllers: [
+    AuthController,
+    UsersController,
+    StoresController,
+    UserStoreController,
+  ],
   providers: [
     ConfigService,
     LocalStrategy,
@@ -77,6 +87,9 @@ import { readFileSync } from 'fs';
     JwtAuthGuard,
     AuthService,
     UsersService,
+    StoresService,
+    UserStoreService,
+    StoreAccessGuard,
   ],
 })
 export class FeaturesModule {}
