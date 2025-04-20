@@ -1,0 +1,40 @@
+export enum Services {
+  AUTH = 'auth',
+  USER = 'user',
+  STORE = 'store',
+  PRODUCT = 'product',
+}
+
+export enum ErrorType {
+  VALIDATION = 'VALIDATION',
+  NOT_FOUND = 'NOT_FOUND',
+  CONFLICT = 'CONFLICT',
+  INTERNAL = 'INTERNAL',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+  BAD_REQUEST = 'BAD_REQUEST',
+}
+
+export enum CommonErrorCode {
+  FORBIDDEN = 'FORBIDDEN',
+  BAD_REQUEST = 'BAD_REQUEST',
+  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+}
+
+export enum UserErrorCode {
+  USER_NOT_FOUND = 'USER_NOT_FOUND',
+  USER_UNAUTHORIZED = 'USER_UNAUTHORIZED',
+  USER_CONFLICT = 'USER_CONFLICT',
+}
+
+export enum StoreErrorCode {
+  STORE_NOT_FOUND = 'STORE_NOT_FOUND',
+  STORE_ALREADY_EXISTS = 'STORE_ALREADY_EXISTS',
+}
+
+export type Error = {
+  service: Services;
+  type: ErrorType;
+  code: string;
+  message: string;
+};
