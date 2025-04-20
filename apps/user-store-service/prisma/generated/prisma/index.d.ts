@@ -5902,7 +5902,7 @@ export namespace Prisma {
 
   export type UserStoreWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId_storeId?: UserStoreUserIdStoreIdCompoundUniqueInput
+    userId_storeId_role?: UserStoreUserIdStoreIdRoleCompoundUniqueInput
     AND?: UserStoreWhereInput | UserStoreWhereInput[]
     OR?: UserStoreWhereInput[]
     NOT?: UserStoreWhereInput | UserStoreWhereInput[]
@@ -5913,7 +5913,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserStore"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
-  }, "id" | "userId_storeId">
+  }, "id" | "userId_storeId_role">
 
   export type UserStoreOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6447,9 +6447,10 @@ export namespace Prisma {
     isNot?: StoreWhereInput
   }
 
-  export type UserStoreUserIdStoreIdCompoundUniqueInput = {
+  export type UserStoreUserIdStoreIdRoleCompoundUniqueInput = {
     userId: string
     storeId: string
+    role: $Enums.StoreRole
   }
 
   export type UserStoreCountOrderByAggregateInput = {

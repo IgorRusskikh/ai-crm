@@ -50,8 +50,8 @@ model UserStore {
   user  User  @relation(fields: [userId], references: [id])
   store Store @relation(fields: [storeId], references: [id])
 
-  @@unique([userId, storeId])
-  @@index([userId, storeId])
+  @@unique([userId, storeId, role])
+  @@index([userId, storeId, role])
   @@map("user_stores")
 }
 
