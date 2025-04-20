@@ -44,3 +44,7 @@ Thumbs.db
 # Keys
 *.key
 *.key.pub
+
+# Next.js
+.next
+out
