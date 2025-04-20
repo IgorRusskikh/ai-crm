@@ -1,3 +1,9 @@
+import {
+  Services,
+  UserConflictError,
+  UserNotFoundError,
+} from 'shared/src/lib/errors';
+
 import { Injectable } from '@nestjs/common';
 import { Prisma } from 'apps/user-store-service/prisma/generated/prisma';
 import { UsersService } from 'apps/user-store-service/src/infrastructure/services/users/users.service';
@@ -11,7 +17,10 @@ export class UsersUseCase {
       const foundUser = await this.usersService.getUserByAuthId(authId);
 
       if (!foundUser) {
-        return { error: 'User not found', status: 404 };
+        return UserNotFoundError({
+          service: Services.USER,
+          message: 'User not found',
+        });
       }
 
       return {
@@ -31,7 +40,10 @@ export class UsersUseCase {
     const existsUser = await this.usersService.getUserByAuthId(user.authId);
 
     if (existsUser) {
-      return { message: 'User already exists', status: 400 };
+      return UserConflictError({
+        service: Services.USER,
+        message: `User with id ${user.authId} already exists`,
+      });
     }
 
     const createdUser = await this.usersService.createUser(user);
@@ -43,7 +55,10 @@ export class UsersUseCase {
     const existsUser = await this.usersService.getUserById(userId);
 
     if (!existsUser) {
-      return { message: 'User not found', status: 404 };
+      return UserNotFoundError({
+        service: Services.USER,
+        message: `User with id ${userId} not found`,
+      });
     }
 
     const updatedUser = await this.usersService.updateUser(
@@ -58,7 +73,10 @@ export class UsersUseCase {
     const existsUser = await this.usersService.getUserById(userId);
 
     if (!existsUser) {
-      return { message: 'User not found', status: 404 };
+      return UserNotFoundError({
+        service: Services.USER,
+        message: `User with id ${userId} not found`,
+      });
     }
 
     const deletedUser = await this.usersService.deleteUser(userId);

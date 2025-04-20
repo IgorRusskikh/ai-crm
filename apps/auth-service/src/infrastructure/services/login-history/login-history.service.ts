@@ -22,10 +22,12 @@ export class LoginHistoryService {
         userId,
       },
     });
+
+    return loginHistory;
   }
 
   async deleteLoginHistory(id: string) {
-    await this.prisma.loginHistory.delete({
+    return await this.prisma.loginHistory.delete({
       where: {
         id,
       },
@@ -33,7 +35,7 @@ export class LoginHistoryService {
   }
 
   async clearLoginHistory(userId: string) {
-    await this.prisma.loginHistory.deleteMany({
+    return await this.prisma.loginHistory.deleteMany({
       where: {
         userId,
       },

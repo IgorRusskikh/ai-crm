@@ -7,6 +7,11 @@ import { AuthUseCase } from 'apps/auth-service/src/app/use-cases/auth/auth.use-c
 import accessTokenCookie from 'apps/auth-service/src/shared/cookies/access-token.cookie';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginHistoryService } from '../../services/login-history/login-history.service';
+import {
+  Services,
+  InternalServerError,
+  UserNotFoundError,
+} from 'shared/src/lib/errors';
 
 @Controller()
 export class AuthController {
@@ -36,7 +41,10 @@ export class AuthController {
       };
     } catch (error) {
       console.error('Error in signin:', error);
-      throw new RpcException(error.message || 'Ошибка при входе в систему');
+      return InternalServerError({
+        service: Services.AUTH,
+        message: 'Error in signin',
+      });
     }
   }
 
@@ -63,7 +71,10 @@ export class AuthController {
         cookieOptions: accessTokenCookie,
       };
     } catch (error) {
-      throw new RpcException(error.message || 'Ошибка при регистрации');
+      return InternalServerError({
+        service: Services.AUTH,
+        message: 'Error in signup',
+      });
     }
   }
 
@@ -76,7 +87,10 @@ export class AuthController {
         message: 'Logout successful',
       };
     } catch (error) {
-      throw new RpcException(error.message || 'Ошибка при выходе');
+      return InternalServerError({
+        service: Services.AUTH,
+        message: 'Error in logout',
+      });
     }
   }
 
@@ -87,13 +101,26 @@ export class AuthController {
     );
 
     if (!user) {
-      throw new RpcException('User not found');
+      return UserNotFoundError({
+        service: Services.AUTH,
+        message: 'User not found',
+      });
     }
 
+    if ('type' in user && 'code' in user) {
+      return user;
+    }
+
+    const userWithRoles = user as {
+      id: string;
+      email: string;
+      UserRole: { role: string }[];
+    };
+
     const data = {
-      id: user.id,
-      email: user.email,
-      systemRoles: user.UserRole.map((role) => role.role),
+      id: userWithRoles.id,
+      email: userWithRoles.email,
+      systemRoles: userWithRoles.UserRole.map((role) => role.role),
     };
 
     return data;
@@ -116,7 +143,10 @@ export class AuthController {
       return user;
     } catch (error) {
       console.log(error);
-      throw new RpcException(error.message || 'Ошибка при валидации');
+      return InternalServerError({
+        service: Services.AUTH,
+        message: 'Error in validateByEmailAndPassword',
+      });
     }
   }
 
@@ -131,7 +161,10 @@ export class AuthController {
         message: 'Refresh tokens recalled successfully',
       };
     } catch (error) {
-      throw new RpcException(error.message || 'Ошибка при вызове метода');
+      return InternalServerError({
+        service: Services.AUTH,
+        message: 'Error in recallRefreshToken',
+      });
     }
   }
 }

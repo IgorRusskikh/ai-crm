@@ -9,17 +9,15 @@ export class StoresUseCase {
   async createStore(createStoreDto: Prisma.StoreCreateInput) {
     const store = await this.storesService.create(createStoreDto);
 
-    if (store.type === 'error') {
-      return store;
-    }
-
     return store;
   }
 
-  async getStore(slug: string) {
-    const store = await this.storesService.getOneBySlug(slug);
+  async getStore(slug: string, include?: Prisma.StoreInclude) {
+    const store = await this.storesService.getOneBySlug(slug, include);
 
-    if (store.type === 'error') {
+    console.log('STORE INSTANCE OF ERROR', store instanceof Error);
+
+    if (store instanceof Error) {
       return store;
     }
 
@@ -29,7 +27,7 @@ export class StoresUseCase {
   async updateStore(slug: string, updateStoreDto: Prisma.StoreUpdateInput) {
     const store = await this.storesService.update(slug, updateStoreDto);
 
-    if (store.type === 'error') {
+    if (store instanceof Error) {
       return store;
     }
 
@@ -38,10 +36,6 @@ export class StoresUseCase {
 
   async deleteStore(slug: string) {
     const store = await this.storesService.delete(slug);
-
-    if (store.type === 'error') {
-      return store;
-    }
 
     return store;
   }

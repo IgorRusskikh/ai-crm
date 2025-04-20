@@ -1,6 +1,12 @@
 import * as argon2 from 'argon2';
 
 import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  Error,
+  Services,
+  UserNotFoundError,
+  UserUnauthorizedError,
+} from 'shared/src/lib/errors';
 
 import { JwtPayload } from 'apps/auth-service/src/app/interfaces/jwt-payload';
 import { PrismaPersistence } from '../../persistence/prisma.persistence';
@@ -18,7 +24,7 @@ export class AuthService {
 
   async validateUserByEmail(
     email: string
-  ): Promise<(User & { UserRole: { role: string }[] }) | null> {
+  ): Promise<(User & { UserRole: { role: string }[] }) | Error> {
     const user = await this.usersService.getOneByEmail({
       email,
       include: {
@@ -31,7 +37,10 @@ export class AuthService {
     });
 
     if (!user) {
-      return null;
+      return UserNotFoundError({
+        service: Services.AUTH,
+        message: `User with email ${email} not found`,
+      });
     }
 
     return user;
@@ -40,7 +49,7 @@ export class AuthService {
   async validateUserByEmailAndPassword(
     email: string,
     password: string
-  ): Promise<Omit<JwtPayload, 'sub'>> {
+  ): Promise<Omit<JwtPayload, 'sub'> | Error> {
     const user = await this.usersService.getOneByEmail({
       email,
       include: {
@@ -53,17 +62,19 @@ export class AuthService {
     });
 
     if (!user) {
-      return null;
+      return UserNotFoundError({
+        service: Services.AUTH,
+        message: `User with email ${email} not found`,
+      });
     }
 
     try {
       const isPasswordValid = await argon2.verify(user.password, password);
 
       if (!isPasswordValid) {
-        throw new UnauthorizedException({
+        return UserUnauthorizedError({
+          service: Services.AUTH,
           message: 'Invalid password',
-          reason: 'Invalid credentials',
-          requestId: uuidv4(),
         });
       }
 
@@ -78,10 +89,9 @@ export class AuthService {
 
       return data;
     } catch (error) {
-      throw new UnauthorizedException({
-        message: 'Invalid password',
-        reason: 'Invalid credentials',
-        requestId: uuidv4(),
+      return UserUnauthorizedError({
+        service: Services.AUTH,
+        message: 'Invalid login credentials',
       });
     }
   }
@@ -92,10 +102,9 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException({
-        message: 'User not found',
-        reason: 'User not found',
-        requestId: uuidv4(),
+      return UserNotFoundError({
+        service: Services.AUTH,
+        message: `User with email ${email} not found`,
       });
     }
 
