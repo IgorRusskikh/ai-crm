@@ -56,16 +56,22 @@ model UserStore {
 }
 
 model MarketplaceToken {
-  id          String      @id @default(uuid())
-  token       String
-  marketplace Marketplace
-  storeId     String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id                        String      @id @default(uuid())
+  encryptedToken            String
+  tokenIv                   String
+  tokenEncryptionVersion    Int         @default(1)
+  encryptedSellerId         String
+  sellerIdIv                String
+  sellerIdEncryptionVersion Int         @default(1)
+  marketplace               Marketplace
+  storeSlug                 String
+  createdAt                 DateTime    @default(now())
+  updatedAt                 DateTime    @updatedAt
 
-  store Store @relation(fields: [storeId], references: [id])
+  store Store @relation(fields: [storeSlug], references: [slug])
 
-  @@index([storeId, marketplace])
+  @@unique([storeSlug, marketplace])
+  @@index([storeSlug, marketplace])
   @@map("marketplace_tokens")
 }
 
