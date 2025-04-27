@@ -1,0 +1,55 @@
+.productsGrid {
+  @apply grid grid-cols-3 gap-5 mt-5;
+}
+
+.productCard {
+  @apply p-4;
+}
+
+.productCardImage {
+  @apply relative w-full h-[180px] rounded-lg overflow-hidden aspect-video bg-slate-400;
+}
+
+.productCardImageOverlay {
+  @apply absolute inset-0 flex flex-col justify-between p-2;
+}
+
+.cardActions {
+  @apply self-end;
+}
+
+.cardActionButton {
+  @apply bg-white rounded-full p-2 hover:bg-secondary-grey-500 transition-colors;
+}
+
+.aiRate {
+  @apply py-1 px-2 bg-white rounded-full w-fit flex items-center gap-1;
+}
+
+.aiRateIcon {
+  @apply text-primary-blue-500;
+}
+
+.productContent {
+  @apply mt-4;
+}
+
+.productCardTitle {
+  @apply text-xl text-primary-main-text font-medium text-ellipsis text-nowrap overflow-hidden;
+}
+
+.whoAdded {
+  @apply text-secondary-grey-600 text-base text-ellipsis text-nowrap overflow-hidden;
+}
+
+.footer {
+  @apply mt-5 flex justify-between items-center;
+}
+
+.productCardPrice {
+  @apply text-xl font-bold text-primary-main-text;
+}
+
+.viewDetailsButton {
+  @apply min-w-[120px] h-[40px] rounded-lg bg-primary-main-text text-white text-lg font-medium;
+}

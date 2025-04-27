@@ -1,0 +1,7 @@
+.productsTopContentActions {
+  @apply flex gap-4 items-center flex-wrap mt-8;
+}
+
+.productsTopContentButton {
+  @apply bg-secondary-grey-300 rounded-lg border border-secondary-grey-600 text-lg h-14 min-w-60;
+}
