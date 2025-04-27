@@ -146,9 +146,14 @@ exports.Prisma.UserStoreScalarFieldEnum = {
 
 exports.Prisma.MarketplaceTokenScalarFieldEnum = {
   id: 'id',
-  token: 'token',
+  encryptedToken: 'encryptedToken',
+  tokenIv: 'tokenIv',
+  tokenEncryptionVersion: 'tokenEncryptionVersion',
+  encryptedSellerId: 'encryptedSellerId',
+  sellerIdIv: 'sellerIdIv',
+  sellerIdEncryptionVersion: 'sellerIdEncryptionVersion',
   marketplace: 'marketplace',
-  storeId: 'storeId',
+  storeSlug: 'storeSlug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

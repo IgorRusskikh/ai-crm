@@ -4523,62 +4523,114 @@ export namespace Prisma {
 
   export type AggregateMarketplaceToken = {
     _count: MarketplaceTokenCountAggregateOutputType | null
+    _avg: MarketplaceTokenAvgAggregateOutputType | null
+    _sum: MarketplaceTokenSumAggregateOutputType | null
     _min: MarketplaceTokenMinAggregateOutputType | null
     _max: MarketplaceTokenMaxAggregateOutputType | null
   }
 
+  export type MarketplaceTokenAvgAggregateOutputType = {
+    tokenEncryptionVersion: number | null
+    sellerIdEncryptionVersion: number | null
+  }
+
+  export type MarketplaceTokenSumAggregateOutputType = {
+    tokenEncryptionVersion: number | null
+    sellerIdEncryptionVersion: number | null
+  }
+
   export type MarketplaceTokenMinAggregateOutputType = {
     id: string | null
-    token: string | null
+    encryptedToken: string | null
+    tokenIv: string | null
+    tokenEncryptionVersion: number | null
+    encryptedSellerId: string | null
+    sellerIdIv: string | null
+    sellerIdEncryptionVersion: number | null
     marketplace: $Enums.Marketplace | null
-    storeId: string | null
+    storeSlug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type MarketplaceTokenMaxAggregateOutputType = {
     id: string | null
-    token: string | null
+    encryptedToken: string | null
+    tokenIv: string | null
+    tokenEncryptionVersion: number | null
+    encryptedSellerId: string | null
+    sellerIdIv: string | null
+    sellerIdEncryptionVersion: number | null
     marketplace: $Enums.Marketplace | null
-    storeId: string | null
+    storeSlug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type MarketplaceTokenCountAggregateOutputType = {
     id: number
-    token: number
+    encryptedToken: number
+    tokenIv: number
+    tokenEncryptionVersion: number
+    encryptedSellerId: number
+    sellerIdIv: number
+    sellerIdEncryptionVersion: number
     marketplace: number
-    storeId: number
+    storeSlug: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type MarketplaceTokenAvgAggregateInputType = {
+    tokenEncryptionVersion?: true
+    sellerIdEncryptionVersion?: true
+  }
+
+  export type MarketplaceTokenSumAggregateInputType = {
+    tokenEncryptionVersion?: true
+    sellerIdEncryptionVersion?: true
+  }
+
   export type MarketplaceTokenMinAggregateInputType = {
     id?: true
-    token?: true
+    encryptedToken?: true
+    tokenIv?: true
+    tokenEncryptionVersion?: true
+    encryptedSellerId?: true
+    sellerIdIv?: true
+    sellerIdEncryptionVersion?: true
     marketplace?: true
-    storeId?: true
+    storeSlug?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type MarketplaceTokenMaxAggregateInputType = {
     id?: true
-    token?: true
+    encryptedToken?: true
+    tokenIv?: true
+    tokenEncryptionVersion?: true
+    encryptedSellerId?: true
+    sellerIdIv?: true
+    sellerIdEncryptionVersion?: true
     marketplace?: true
-    storeId?: true
+    storeSlug?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type MarketplaceTokenCountAggregateInputType = {
     id?: true
-    token?: true
+    encryptedToken?: true
+    tokenIv?: true
+    tokenEncryptionVersion?: true
+    encryptedSellerId?: true
+    sellerIdIv?: true
+    sellerIdEncryptionVersion?: true
     marketplace?: true
-    storeId?: true
+    storeSlug?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4622,6 +4674,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MarketplaceTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MarketplaceTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MarketplaceTokenMinAggregateInputType
@@ -4652,18 +4716,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MarketplaceTokenCountAggregateInputType | true
+    _avg?: MarketplaceTokenAvgAggregateInputType
+    _sum?: MarketplaceTokenSumAggregateInputType
     _min?: MarketplaceTokenMinAggregateInputType
     _max?: MarketplaceTokenMaxAggregateInputType
   }
 
   export type MarketplaceTokenGroupByOutputType = {
     id: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion: number
     marketplace: $Enums.Marketplace
-    storeId: string
+    storeSlug: string
     createdAt: Date
     updatedAt: Date
     _count: MarketplaceTokenCountAggregateOutputType | null
+    _avg: MarketplaceTokenAvgAggregateOutputType | null
+    _sum: MarketplaceTokenSumAggregateOutputType | null
     _min: MarketplaceTokenMinAggregateOutputType | null
     _max: MarketplaceTokenMaxAggregateOutputType | null
   }
@@ -4684,9 +4757,14 @@ export namespace Prisma {
 
   export type MarketplaceTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    token?: boolean
+    encryptedToken?: boolean
+    tokenIv?: boolean
+    tokenEncryptionVersion?: boolean
+    encryptedSellerId?: boolean
+    sellerIdIv?: boolean
+    sellerIdEncryptionVersion?: boolean
     marketplace?: boolean
-    storeId?: boolean
+    storeSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -4694,9 +4772,14 @@ export namespace Prisma {
 
   export type MarketplaceTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    token?: boolean
+    encryptedToken?: boolean
+    tokenIv?: boolean
+    tokenEncryptionVersion?: boolean
+    encryptedSellerId?: boolean
+    sellerIdIv?: boolean
+    sellerIdEncryptionVersion?: boolean
     marketplace?: boolean
-    storeId?: boolean
+    storeSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -4704,9 +4787,14 @@ export namespace Prisma {
 
   export type MarketplaceTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    token?: boolean
+    encryptedToken?: boolean
+    tokenIv?: boolean
+    tokenEncryptionVersion?: boolean
+    encryptedSellerId?: boolean
+    sellerIdIv?: boolean
+    sellerIdEncryptionVersion?: boolean
     marketplace?: boolean
-    storeId?: boolean
+    storeSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -4714,14 +4802,19 @@ export namespace Prisma {
 
   export type MarketplaceTokenSelectScalar = {
     id?: boolean
-    token?: boolean
+    encryptedToken?: boolean
+    tokenIv?: boolean
+    tokenEncryptionVersion?: boolean
+    encryptedSellerId?: boolean
+    sellerIdIv?: boolean
+    sellerIdEncryptionVersion?: boolean
     marketplace?: boolean
-    storeId?: boolean
+    storeSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MarketplaceTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "marketplace" | "storeId" | "createdAt" | "updatedAt", ExtArgs["result"]["marketplaceToken"]>
+  export type MarketplaceTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "encryptedToken" | "tokenIv" | "tokenEncryptionVersion" | "encryptedSellerId" | "sellerIdIv" | "sellerIdEncryptionVersion" | "marketplace" | "storeSlug" | "createdAt" | "updatedAt", ExtArgs["result"]["marketplaceToken"]>
   export type MarketplaceTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }
@@ -4739,9 +4832,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      token: string
+      encryptedToken: string
+      tokenIv: string
+      tokenEncryptionVersion: number
+      encryptedSellerId: string
+      sellerIdIv: string
+      sellerIdEncryptionVersion: number
       marketplace: $Enums.Marketplace
-      storeId: string
+      storeSlug: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["marketplaceToken"]>
@@ -5169,9 +5267,14 @@ export namespace Prisma {
    */
   interface MarketplaceTokenFieldRefs {
     readonly id: FieldRef<"MarketplaceToken", 'String'>
-    readonly token: FieldRef<"MarketplaceToken", 'String'>
+    readonly encryptedToken: FieldRef<"MarketplaceToken", 'String'>
+    readonly tokenIv: FieldRef<"MarketplaceToken", 'String'>
+    readonly tokenEncryptionVersion: FieldRef<"MarketplaceToken", 'Int'>
+    readonly encryptedSellerId: FieldRef<"MarketplaceToken", 'String'>
+    readonly sellerIdIv: FieldRef<"MarketplaceToken", 'String'>
+    readonly sellerIdEncryptionVersion: FieldRef<"MarketplaceToken", 'Int'>
     readonly marketplace: FieldRef<"MarketplaceToken", 'Marketplace'>
-    readonly storeId: FieldRef<"MarketplaceToken", 'String'>
+    readonly storeSlug: FieldRef<"MarketplaceToken", 'String'>
     readonly createdAt: FieldRef<"MarketplaceToken", 'DateTime'>
     readonly updatedAt: FieldRef<"MarketplaceToken", 'DateTime'>
   }
@@ -5640,9 +5743,14 @@ export namespace Prisma {
 
   export const MarketplaceTokenScalarFieldEnum: {
     id: 'id',
-    token: 'token',
+    encryptedToken: 'encryptedToken',
+    tokenIv: 'tokenIv',
+    tokenEncryptionVersion: 'tokenEncryptionVersion',
+    encryptedSellerId: 'encryptedSellerId',
+    sellerIdIv: 'sellerIdIv',
+    sellerIdEncryptionVersion: 'sellerIdEncryptionVersion',
     marketplace: 'marketplace',
-    storeId: 'storeId',
+    storeSlug: 'storeSlug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5722,6 +5830,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Marketplace'
    */
   export type EnumMarketplaceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Marketplace'>
@@ -5736,16 +5858,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5944,9 +6066,14 @@ export namespace Prisma {
     OR?: MarketplaceTokenWhereInput[]
     NOT?: MarketplaceTokenWhereInput | MarketplaceTokenWhereInput[]
     id?: StringFilter<"MarketplaceToken"> | string
-    token?: StringFilter<"MarketplaceToken"> | string
+    encryptedToken?: StringFilter<"MarketplaceToken"> | string
+    tokenIv?: StringFilter<"MarketplaceToken"> | string
+    tokenEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
+    encryptedSellerId?: StringFilter<"MarketplaceToken"> | string
+    sellerIdIv?: StringFilter<"MarketplaceToken"> | string
+    sellerIdEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
     marketplace?: EnumMarketplaceFilter<"MarketplaceToken"> | $Enums.Marketplace
-    storeId?: StringFilter<"MarketplaceToken"> | string
+    storeSlug?: StringFilter<"MarketplaceToken"> | string
     createdAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
     updatedAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
@@ -5954,9 +6081,14 @@ export namespace Prisma {
 
   export type MarketplaceTokenOrderByWithRelationInput = {
     id?: SortOrder
-    token?: SortOrder
+    encryptedToken?: SortOrder
+    tokenIv?: SortOrder
+    tokenEncryptionVersion?: SortOrder
+    encryptedSellerId?: SortOrder
+    sellerIdIv?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
     marketplace?: SortOrder
-    storeId?: SortOrder
+    storeSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     store?: StoreOrderByWithRelationInput
@@ -5964,27 +6096,40 @@ export namespace Prisma {
 
   export type MarketplaceTokenWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    storeSlug_marketplace?: MarketplaceTokenStoreSlugMarketplaceCompoundUniqueInput
     AND?: MarketplaceTokenWhereInput | MarketplaceTokenWhereInput[]
     OR?: MarketplaceTokenWhereInput[]
     NOT?: MarketplaceTokenWhereInput | MarketplaceTokenWhereInput[]
-    token?: StringFilter<"MarketplaceToken"> | string
+    encryptedToken?: StringFilter<"MarketplaceToken"> | string
+    tokenIv?: StringFilter<"MarketplaceToken"> | string
+    tokenEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
+    encryptedSellerId?: StringFilter<"MarketplaceToken"> | string
+    sellerIdIv?: StringFilter<"MarketplaceToken"> | string
+    sellerIdEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
     marketplace?: EnumMarketplaceFilter<"MarketplaceToken"> | $Enums.Marketplace
-    storeId?: StringFilter<"MarketplaceToken"> | string
+    storeSlug?: StringFilter<"MarketplaceToken"> | string
     createdAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
     updatedAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
-  }, "id">
+  }, "id" | "storeSlug_marketplace">
 
   export type MarketplaceTokenOrderByWithAggregationInput = {
     id?: SortOrder
-    token?: SortOrder
+    encryptedToken?: SortOrder
+    tokenIv?: SortOrder
+    tokenEncryptionVersion?: SortOrder
+    encryptedSellerId?: SortOrder
+    sellerIdIv?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
     marketplace?: SortOrder
-    storeId?: SortOrder
+    storeSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MarketplaceTokenCountOrderByAggregateInput
+    _avg?: MarketplaceTokenAvgOrderByAggregateInput
     _max?: MarketplaceTokenMaxOrderByAggregateInput
     _min?: MarketplaceTokenMinOrderByAggregateInput
+    _sum?: MarketplaceTokenSumOrderByAggregateInput
   }
 
   export type MarketplaceTokenScalarWhereWithAggregatesInput = {
@@ -5992,9 +6137,14 @@ export namespace Prisma {
     OR?: MarketplaceTokenScalarWhereWithAggregatesInput[]
     NOT?: MarketplaceTokenScalarWhereWithAggregatesInput | MarketplaceTokenScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MarketplaceToken"> | string
-    token?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    encryptedToken?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    tokenIv?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    tokenEncryptionVersion?: IntWithAggregatesFilter<"MarketplaceToken"> | number
+    encryptedSellerId?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    sellerIdIv?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    sellerIdEncryptionVersion?: IntWithAggregatesFilter<"MarketplaceToken"> | number
     marketplace?: EnumMarketplaceWithAggregatesFilter<"MarketplaceToken"> | $Enums.Marketplace
-    storeId?: StringWithAggregatesFilter<"MarketplaceToken"> | string
+    storeSlug?: StringWithAggregatesFilter<"MarketplaceToken"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MarketplaceToken"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MarketplaceToken"> | Date | string
   }
@@ -6200,7 +6350,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenCreateInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6209,16 +6364,26 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedCreateInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
-    storeId: string
+    storeSlug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type MarketplaceTokenUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6227,25 +6392,40 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MarketplaceTokenCreateManyInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
-    storeId: string
+    storeSlug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type MarketplaceTokenUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6253,9 +6433,14 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6490,6 +6675,17 @@ export namespace Prisma {
     _max?: NestedEnumStoreRoleFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type EnumMarketplaceFilter<$PrismaModel = never> = {
     equals?: $Enums.Marketplace | EnumMarketplaceFieldRefInput<$PrismaModel>
     in?: $Enums.Marketplace[] | ListEnumMarketplaceFieldRefInput<$PrismaModel>
@@ -6497,31 +6693,77 @@ export namespace Prisma {
     not?: NestedEnumMarketplaceFilter<$PrismaModel> | $Enums.Marketplace
   }
 
+  export type MarketplaceTokenStoreSlugMarketplaceCompoundUniqueInput = {
+    storeSlug: string
+    marketplace: $Enums.Marketplace
+  }
+
   export type MarketplaceTokenCountOrderByAggregateInput = {
     id?: SortOrder
-    token?: SortOrder
+    encryptedToken?: SortOrder
+    tokenIv?: SortOrder
+    tokenEncryptionVersion?: SortOrder
+    encryptedSellerId?: SortOrder
+    sellerIdIv?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
     marketplace?: SortOrder
-    storeId?: SortOrder
+    storeSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
+  export type MarketplaceTokenAvgOrderByAggregateInput = {
+    tokenEncryptionVersion?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
+  }
+
   export type MarketplaceTokenMaxOrderByAggregateInput = {
     id?: SortOrder
-    token?: SortOrder
+    encryptedToken?: SortOrder
+    tokenIv?: SortOrder
+    tokenEncryptionVersion?: SortOrder
+    encryptedSellerId?: SortOrder
+    sellerIdIv?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
     marketplace?: SortOrder
-    storeId?: SortOrder
+    storeSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type MarketplaceTokenMinOrderByAggregateInput = {
     id?: SortOrder
-    token?: SortOrder
+    encryptedToken?: SortOrder
+    tokenIv?: SortOrder
+    tokenEncryptionVersion?: SortOrder
+    encryptedSellerId?: SortOrder
+    sellerIdIv?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
     marketplace?: SortOrder
-    storeId?: SortOrder
+    storeSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type MarketplaceTokenSumOrderByAggregateInput = {
+    tokenEncryptionVersion?: SortOrder
+    sellerIdEncryptionVersion?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumMarketplaceWithAggregatesFilter<$PrismaModel = never> = {
@@ -6710,6 +6952,14 @@ export namespace Prisma {
     connect?: StoreWhereUniqueInput
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumMarketplaceFieldUpdateOperationsInput = {
     set?: $Enums.Marketplace
   }
@@ -6855,6 +7105,33 @@ export namespace Prisma {
     not?: NestedEnumMarketplaceFilter<$PrismaModel> | $Enums.Marketplace
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumMarketplaceWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Marketplace | EnumMarketplaceFieldRefInput<$PrismaModel>
     in?: $Enums.Marketplace[] | ListEnumMarketplaceFieldRefInput<$PrismaModel>
@@ -6921,7 +7198,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenCreateWithoutStoreInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6929,7 +7211,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedCreateWithoutStoreInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6992,9 +7279,14 @@ export namespace Prisma {
     OR?: MarketplaceTokenScalarWhereInput[]
     NOT?: MarketplaceTokenScalarWhereInput | MarketplaceTokenScalarWhereInput[]
     id?: StringFilter<"MarketplaceToken"> | string
-    token?: StringFilter<"MarketplaceToken"> | string
+    encryptedToken?: StringFilter<"MarketplaceToken"> | string
+    tokenIv?: StringFilter<"MarketplaceToken"> | string
+    tokenEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
+    encryptedSellerId?: StringFilter<"MarketplaceToken"> | string
+    sellerIdIv?: StringFilter<"MarketplaceToken"> | string
+    sellerIdEncryptionVersion?: IntFilter<"MarketplaceToken"> | number
     marketplace?: EnumMarketplaceFilter<"MarketplaceToken"> | $Enums.Marketplace
-    storeId?: StringFilter<"MarketplaceToken"> | string
+    storeSlug?: StringFilter<"MarketplaceToken"> | string
     createdAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
     updatedAt?: DateTimeFilter<"MarketplaceToken"> | Date | string
   }
@@ -7217,7 +7509,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenCreateManyStoreInput = {
     id?: string
-    token: string
+    encryptedToken: string
+    tokenIv: string
+    tokenEncryptionVersion?: number
+    encryptedSellerId: string
+    sellerIdIv: string
+    sellerIdEncryptionVersion?: number
     marketplace: $Enums.Marketplace
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7233,7 +7530,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7241,7 +7543,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7249,7 +7556,12 @@ export namespace Prisma {
 
   export type MarketplaceTokenUncheckedUpdateManyWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
+    encryptedToken?: StringFieldUpdateOperationsInput | string
+    tokenIv?: StringFieldUpdateOperationsInput | string
+    tokenEncryptionVersion?: IntFieldUpdateOperationsInput | number
+    encryptedSellerId?: StringFieldUpdateOperationsInput | string
+    sellerIdIv?: StringFieldUpdateOperationsInput | string
+    sellerIdEncryptionVersion?: IntFieldUpdateOperationsInput | number
     marketplace?: EnumMarketplaceFieldUpdateOperationsInput | $Enums.Marketplace
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
