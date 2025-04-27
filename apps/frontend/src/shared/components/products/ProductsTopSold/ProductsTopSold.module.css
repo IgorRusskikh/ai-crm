@@ -1,0 +1,23 @@
+.productsTopSold {
+  @apply flex flex-col gap-y-5 mt-5;
+}
+
+.productsTopSoldItem {
+  @apply flex items-center justify-between gap-y-48 gap-3;
+}
+
+.productInfo {
+  @apply flex items-center gap-3;
+}
+
+.productImage {
+  @apply size-16 rounded-lg overflow-hidden bg-slate-400 aspect-square;
+}
+
+.productTitle {
+  @apply text-xl text-primary-main-text font-medium;
+}
+
+.soldCount {
+  @apply flex items-center justify-center bg-secondary-grey-600 text-white rounded-lg size-14;
+}

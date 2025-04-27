@@ -1,0 +1,23 @@
+.productsLastActivity {
+  @apply flex flex-col gap-y-5 mt-5;
+}
+
+.productsLastActivityItem {
+  @apply flex items-center justify-between gap-3;
+}
+
+.productInfo {
+  @apply flex items-center gap-3;
+}
+
+.productsLastActivityItemImage {
+  @apply size-16 rounded-lg overflow-hidden bg-slate-400 aspect-square;
+}
+
+.productTitle {
+  @apply text-xl text-primary-main-text font-medium;
+}
+
+.time {
+  @apply text-sm text-secondary-grey-600;
+}

@@ -1,0 +1,31 @@
+.productsFilters {
+  @apply w-full flex items-center gap-5;
+}
+
+.slide {
+  @apply !w-fit;
+}
+
+.filterItem {
+  @apply w-fit relative text-xl text-secondary-grey-600 hover:text-primary-main-text transition-colors duration-300;
+}
+
+.filterItem::after {
+  @apply content-[''] absolute bottom-0 left-1/2 w-0 h-0.5 -translate-x-1/2 bg-primary-main-text transition-all duration-300;
+}
+
+.filterItemActive {
+  @apply text-primary-main-text;
+}
+
+.filterItemActive::after {
+  @apply left-0 w-full translate-x-0 bg-primary-main-text transition-all duration-300;
+}
+
+.filterItem:hover::after {
+  @apply w-full;
+}
+
+.dropdownTrigger {
+  @apply min-w-8 min-h-8 p-2 flex items-center justify-center cursor-pointer hover:bg-secondary-grey-500 rounded-lg transition-colors duration-300;
+}
