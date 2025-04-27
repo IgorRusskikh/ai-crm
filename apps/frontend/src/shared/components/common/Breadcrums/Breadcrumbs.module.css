@@ -1,0 +1,7 @@
+.breadcrumbs {
+  @apply flex items-center gap-1 text-sm leading-6 font-medium text-secondary-grey-600;
+}
+
+.link {
+  @apply hover:text-primary-blue-500 transition-colors duration-300;
+}
