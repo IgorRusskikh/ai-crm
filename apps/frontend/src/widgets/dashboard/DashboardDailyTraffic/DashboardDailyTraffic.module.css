@@ -1,0 +1,28 @@
+.container {
+  @apply px-0;
+}
+
+.header {
+  @apply pl-[25px] pr-[21px];
+}
+
+.headerLeftCol {
+  @apply text-secondary-grey-600;
+}
+
+.title,
+.visitorsCountSubtitle {
+  @apply text-sm leading-6 font-normal text-secondary-grey-600;
+}
+
+.visitorsCount {
+  @apply text-[34px] leading-[42px] font-bold text-primary-main-text;
+}
+
+.endContent {
+  @apply text-secondary-green text-xs leading-5 font-bold flex items-center;
+}
+
+.endContentIcon {
+  @apply size-[18px];
+}

@@ -1,0 +1,51 @@
+.container {
+  @apply h-[345px] max-h-[345px] overflow-hidden px-0;
+}
+
+.header {
+  @apply pr-5 pl-[23px];
+}
+
+.startContent {
+  @apply text-[18px] leading-8 font-bold text-primary-main-text;
+}
+
+.endContent {
+  @apply flex items-center justify-center size-[37px] rounded-2xl bg-secondary-grey-300;
+}
+
+.endContentIcon {
+  @apply size-5 text-primary-blue-500;
+}
+
+.members {
+  @apply flex flex-col gap-3 overflow-y-auto max-h-[244px] mt-6;
+}
+
+.memberItem {
+  @apply flex items-center justify-between gap-2 px-4 py-3 shadow-lg rounded-2xl max-w-[336px] mx-auto w-full;
+}
+
+.memberItemAvatar {
+  @apply size-[46px] rounded-full bg-secondary-green overflow-hidden;
+}
+
+.memberItemContent {
+  @apply flex items-center gap-[18px];
+}
+
+.memberItemName {
+  @apply text-base leading-4 font-bold text-primary-main-text;
+}
+
+.memberItemRole {
+  @apply text-xs leading-5 text-secondary-grey-600 font-medium;
+}
+
+.memberItemAction {
+  @apply flex items-center justify-center size-6;
+}
+
+.memberItemActionIcon {
+  @apply size-6 text-secondary-grey-600;
+}

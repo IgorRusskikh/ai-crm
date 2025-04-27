@@ -1,0 +1,7 @@
+.dashboardHeader {
+  @apply flex justify-between items-end;
+}
+
+.title {
+  @apply text-[34px] leading-[42px] font-bold text-primary-main-text mt-1;
+}

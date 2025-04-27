@@ -1,0 +1,15 @@
+.headerSelectLabel {
+  @apply text-secondary-grey-600;
+}
+
+.headerSelectWrapper {
+  @apply max-w-[30%] text-secondary-grey-600 h-[37px];
+}
+
+.headerSelectTrigger {
+  @apply text-secondary-grey-600 bg-secondary-grey-300;
+}
+
+.content {
+  @apply flex mt-[28px] justify-between gap-5;
+}

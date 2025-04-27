@@ -1,0 +1,39 @@
+.offers {
+  @apply max-h-[244px] overflow-y-auto grid grid-cols-2 gap-4 mt-5;
+}
+
+.offerItem {
+  @apply p-2 rounded-lg bg-white border border-secondary-grey-500;
+}
+
+.header {
+  @apply flex items-center gap-2;
+}
+
+.image {
+  @apply size-[64px] rounded-lg bg-secondary-grey-500;
+}
+
+.info {
+  @apply flex flex-col gap-1;
+}
+
+.title {
+  @apply text-xl font-bold text-primary-main-text;
+}
+
+.description {
+  @apply text-sm text-secondary-grey-600;
+}
+
+.content {
+  @apply mt-4;
+}
+
+.increaseButton {
+  @apply w-full bg-gradient-blue text-white text-base font-medium;
+}
+
+.contentDescription {
+  @apply text-sm text-secondary-grey-600 mt-2;
+}

@@ -1,0 +1,11 @@
+.quickActions {
+  @apply mt-5 overflow-y-auto gap-3 flex flex-col items-start;
+}
+
+.quickAction {
+  @apply text-lg;
+}
+
+.quickActionIcon {
+  @apply size-5;
+}

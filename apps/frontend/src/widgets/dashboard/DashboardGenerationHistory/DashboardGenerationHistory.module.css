@@ -1,0 +1,11 @@
+.container {
+  @apply h-[345px];
+}
+
+.wrapper {
+  @apply p-0 shadow-none mt-6 max-h-[234px] overflow-y-auto;
+}
+
+.tr {
+  @apply cursor-pointer hover:bg-secondary-grey-500 transition-colors duration-300 rounded-2xl;
+}

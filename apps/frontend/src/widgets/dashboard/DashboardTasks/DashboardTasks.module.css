@@ -1,0 +1,88 @@
+.startContent {
+  @apply flex items-center gap-3;
+}
+
+.iconContainer {
+  @apply size-[38px] p-[9px] rounded-full bg-primary-blue-100;
+}
+
+.icon {
+  @apply w-full h-full bg-primary-blue-500 rounded-lg text-white p-1;
+}
+
+.title {
+  @apply text-[18px] leading-[30px] font-bold text-primary-main-text;
+}
+
+.tasksContainer {
+  @apply flex flex-col mt-4 gap-[19px];
+}
+
+.taskItemContainer {
+  @apply relative transition-all duration-200 flex items-center justify-between;
+}
+
+.taskItem {
+  @apply transition-transform flex items-center;
+}
+
+.taskTitle {
+  @apply text-sm font-medium text-gray-700;
+}
+
+.completedTask {
+  @apply line-through text-gray-400;
+}
+
+.taskItemActionIcon {
+  @apply size-6 text-primary-blue-200 cursor-move;
+}
+
+.taskCheckboxes {
+  @apply flex items-center mr-3;
+}
+
+.checkboxContainer {
+  @apply relative inline-block w-5 h-5 mr-2 cursor-pointer;
+}
+
+.checkbox {
+  @apply absolute opacity-0 w-0 h-0;
+}
+
+.checkmark {
+  @apply absolute top-0 left-0 w-4 h-4 border border-gray-300 rounded bg-white;
+}
+
+.completionCheckmark {
+  @apply border-primary-blue-500;
+}
+
+.checkbox:checked ~ .checkmark {
+  @apply bg-primary-blue-500 border-primary-blue-500;
+}
+
+.checkbox:checked ~ .completionCheckmark {
+  @apply bg-primary-blue-500 border-primary-blue-500;
+}
+
+.checkmark:after {
+  content: '';
+  @apply absolute hidden;
+}
+
+.checkbox:checked ~ .checkmark:after {
+  @apply block;
+}
+
+.checkboxContainer .checkmark:after {
+  @apply left-[5px] top-[1px] w-[5px] h-[9px] border-r-2 border-b-2 border-white transform rotate-45;
+}
+
+.taskActions {
+  @apply flex items-center gap-4;
+}
+
+.actionButton {
+  @apply text-sm text-primary-blue-500 hover:text-primary-blue-500;
+}
