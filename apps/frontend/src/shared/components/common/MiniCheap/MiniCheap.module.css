@@ -1,0 +1,19 @@
+.container {
+  @apply pl-[17px] pr-3 py-5 flex items-center gap-[18px] rounded-[20px] bg-white w-full;
+}
+
+.iconContainer {
+  @apply size-14 rounded-full bg-secondary-grey-300 flex items-center justify-center;
+}
+
+.icon {
+  @apply size-8 text-primary-blue-500;
+}
+
+.title {
+  @apply text-sm leading-6 text-secondary-grey-600;
+}
+
+.content {
+  @apply text-2xl leading-8 font-bold text-primary-main-text;
+}
