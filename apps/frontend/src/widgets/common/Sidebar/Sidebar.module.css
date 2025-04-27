@@ -1,0 +1,79 @@
+.sidebar {
+  @apply h-[100dvh] overflow-y-auto pb-[25px] flex flex-col bg-white rounded-br-[20px] overflow-hidden sticky top-0 max-w-[290px];
+}
+
+.header {
+  @apply mt-14 text-center;
+}
+
+.headerTitle {
+  @apply text-[26px] leading-[100%] font-bold text-primary-main-text;
+}
+
+.headerTitleFree {
+  @apply font-normal;
+}
+
+.divider {
+  @apply border-secondary-grey-300 mt-12 mb-[38px];
+}
+
+.menu {
+  @apply flex flex-1 flex-col justify-between;
+}
+
+.menuList {
+  @apply flex flex-col gap-y-4 pl-[31px];
+}
+
+.menuItemLink {
+  @apply flex items-center gap-x-3 text-base leading-[30px] py-[3px] relative;
+}
+
+.menuItemLink:hover .menuItemIcon {
+  @apply text-primary-blue-500;
+}
+
+.menuItemLink:hover .menuItemLabel {
+  @apply text-secondary-grey-700;
+}
+
+.menuItemIcon {
+  @apply size-[28px] flex items-center justify-center transition-colors duration-300;
+}
+
+.disabled {
+  @apply text-secondary-grey-600;
+}
+
+.activeLink {
+  @apply text-secondary-grey-700;
+}
+
+.activeLink {
+  @apply after:content-[''] after:absolute after:right-0 after:top-0 after:w-1 after:h-full after:rounded-[25px] after:bg-primary-blue-500;
+}
+
+.activeIcon {
+  @apply text-primary-blue-500;
+}
+
+.menuItemLabel {
+  @apply transition-colors duration-300;
+}
+
+.menuFooter {
+  @apply px-[31px];
+}
+
+.upgradeContainer {
+  @apply rounded-3xl bg-gradient-blue px-[8px] flex flex-col justify-center items-center h-[190px] text-white;
+}
+
+.upgradeTitle {
+  @apply text-base leading-[28px] font-bold;
+}
+
+.upgradeDescription {
+  @apply text-sm leading-6 font-medium text-center mt-2;
+}
