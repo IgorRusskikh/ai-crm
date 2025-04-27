@@ -1,0 +1,20 @@
+.dashboard {
+  @apply py-[30px] px-[20px] flex-1;
+}
+
+.dashboardContent {
+  @apply mt-5;
+}
+
+.content {
+  @apply mt-5 gap-5 grid grid-cols-2;
+}
+
+.leftCol,
+.rightCol {
+  @apply flex flex-col gap-5;
+}
+
+.doubleCols {
+  @apply grid grid-cols-2 gap-5;
+}
