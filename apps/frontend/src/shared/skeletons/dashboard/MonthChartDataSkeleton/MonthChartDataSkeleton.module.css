@@ -1,0 +1,11 @@
+.totalSpent {
+  @apply w-[130px] h-[40px] rounded-lg;
+}
+
+.totalSpentSubtitle {
+  @apply w-[150px] h-[22px] rounded-lg mt-1;
+}
+
+.status {
+  @apply w-[100px] h-[18px] rounded-lg mt-[25px];
+}

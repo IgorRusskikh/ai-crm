@@ -1,0 +1,7 @@
+.skeletonWrapper {
+  @apply w-full h-[218px] rounded-xl overflow-hidden;
+}
+
+.skeleton {
+  @apply w-full h-full;
+}

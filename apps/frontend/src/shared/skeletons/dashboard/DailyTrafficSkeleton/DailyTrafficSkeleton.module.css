@@ -1,0 +1,23 @@
+.skeleton {
+  @apply p-4 grid grid-cols-7 gap-3 w-full h-[227px] max-w-[90%] mx-auto items-end;
+}
+
+.barContainer {
+  @apply flex h-full flex-col gap-2;
+}
+
+.bar {
+  @apply flex-[1_1_50%] h-full rounded-t-lg;
+}
+
+.day {
+  @apply w-full h-5 rounded-md bg-secondary-grey-500;
+}
+
+.traffic {
+  @apply w-[114px] h-[14px] rounded-md bg-secondary-grey-500;
+}
+
+.count {
+  @apply w-[150px] h-[42px] rounded-md bg-secondary-grey-500 mt-[3px];
+}

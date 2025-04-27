@@ -1,0 +1,15 @@
+.container {
+  @apply grid grid-cols-9 gap-x-2 w-full h-[234px] mt-4;
+}
+
+.barContainer {
+  @apply flex flex-col h-full gap-y-2;
+}
+
+.bar {
+  @apply flex-1 bg-secondary-grey-500 rounded-t-lg;
+}
+
+.day {
+  @apply w-full h-5 bg-secondary-grey-500 rounded-md;
+}
