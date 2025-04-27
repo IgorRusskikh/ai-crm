@@ -1,0 +1,35 @@
+.authWelcome {
+  @apply flex flex-col items-center justify-center h-full w-full relative z-10;
+}
+
+.welcomeContent {
+  @apply flex flex-col items-center justify-center;
+}
+
+.welcomeContent h1 {
+  @apply text-5xl leading-[56px] font-bold text-white;
+}
+
+.welcomeContentHeader {
+  @apply mt-[25px];
+}
+
+.welcomeContentText {
+  @apply w-[370px] h-[134.05px] flex flex-col items-center justify-center border-[2.2px] border-[#ffffff2f] rounded-[26.37px] mt-[51px];
+}
+
+.welcomeContentText {
+  @apply text-center leading-[100%] text-white p-[30px];
+}
+
+.welcomeContentText h3 {
+  @apply text-lg;
+}
+
+.welcomeContentHeader {
+  @apply flex items-center gap-2;
+}
+
+.icon {
+  @apply inline-flex size-10 text-white;
+}
