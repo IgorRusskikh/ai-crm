@@ -1,0 +1,23 @@
+.totalAmount {
+  @apply text-[34px] leading-[42px] font-bold text-primary-main-text;
+}
+
+.total {
+  @apply text-sm leading-6 font-medium text-secondary-grey-600;
+}
+
+.percentage {
+  @apply text-secondary-green text-xs leading-5 font-bold ml-2;
+}
+
+.statusContainer {
+  @apply mt-[25px] flex items-center gap-[6px] text-secondary-green text-base leading-[28px] font-bold;
+}
+
+.iconContainer {
+  @apply size-4 bg-secondary-green rounded-full flex items-center justify-center;
+}
+
+.statusIcon {
+  @apply size-[11px] text-white;
+}
