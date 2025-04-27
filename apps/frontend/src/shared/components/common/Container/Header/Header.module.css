@@ -1,0 +1,15 @@
+.header {
+  @apply flex items-center justify-between;
+}
+
+.title {
+  @apply text-2xl font-bold leading-[100%];
+}
+
+.iconContainer {
+  @apply flex items-center justify-center w-9 h-[33px] bg-secondary-grey-300 rounded-[10px];
+}
+
+.icon {
+  @apply size-6 text-primary-blue-500;
+}
