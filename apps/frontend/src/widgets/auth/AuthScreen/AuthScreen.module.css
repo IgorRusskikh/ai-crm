@@ -1,0 +1,14 @@
+.authScreen {
+  @apply min-h-[100dvh] w-full bg-white grid grid-cols-2 relative;
+}
+
+.bgWrapper {
+  @apply absolute right-0 top-0 h-full w-1/2 overflow-hidden rounded-bl-[150px];
+}
+
+.bg {
+  @apply relative h-full w-full;
+}
+
+.bgImages {
+}

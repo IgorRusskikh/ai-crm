@@ -1,0 +1,64 @@
+.container {
+  @apply flex flex-col items-center justify-center h-full w-full;
+}
+
+.formHeader,
+.form {
+  @apply w-full max-w-[410px];
+}
+
+.formHeader h2 {
+  @apply text-4xl leading-[56px] font-bold text-primary-main-text;
+}
+
+.formHeader p {
+  @apply text-base leading-[100%] text-secondary-grey-600;
+}
+
+.form {
+  @apply mt-9;
+}
+
+.fieldset {
+  @apply flex flex-col gap-y-6;
+}
+
+.inputWrapper {
+  @apply bg-white shadow-none h-[50px] border border-secondary-grey-300 px-6 w-full;
+}
+
+.input {
+  @apply w-full placeholder:text-secondary-grey-600;
+}
+
+.formFooter {
+  @apply flex items-center justify-between mt-[33px];
+}
+
+.passwordEndContentIcon {
+  @apply text-secondary-grey-600;
+}
+
+.keepMeLoggedInLabel {
+  @apply text-sm leading-5 text-primary-main-text;
+}
+
+.keepMeLoggedInWrapper {
+  @apply bg-primary-blue-500;
+}
+
+.forgetPassword {
+  @apply text-primary-blue-500 font-medium text-sm leading-5;
+}
+
+.signInButton {
+  @apply w-full h-[54px] rounded-2xl bg-primary-blue-500 text-white text-sm leading-[100%] font-bold mt-[33px];
+}
+
+.createAccount {
+  @apply mt-[33px] w-full max-w-[410px];
+}
+
+.createAccountButton {
+  @apply text-sm leading-[26px] text-primary-blue-500 font-bold;
+}
