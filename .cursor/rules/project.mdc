@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+You are developing a web application on microservices that allows you to connect a marketplace (Ozon, Wildberries, Yandex Market) and manage products. There are also AI functions for generating and improving product content: SEO, title, description, images and video. There is also an analytics and forecasting function via AI
