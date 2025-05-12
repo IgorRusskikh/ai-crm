@@ -40,6 +40,7 @@ export class StoreAccessGuard implements CanActivate {
       (user as any).id,
       slug
     );
+
     if (!userStoreRoles)
       throw new ForbiddenException('User does not have access to this store');
 
