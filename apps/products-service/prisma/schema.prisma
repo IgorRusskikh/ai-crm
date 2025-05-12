@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  slug        String   @id @default(uuid())
+  externalId  String?
+  name        String
+  description String
+  price       Int      @default(0)
+  discount    Int      @default(0)
+  quantity    Int      @default(0)
+  keywords    String[]
+  richContent String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ProductImage ProductImage[]
+  ProductVideo ProductVideo[]
+  categories   ProductToCategory[]
+
+  @@index([slug, externalId, name])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  url       String
+  blurhash  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [slug], onDelete: Cascade)
+}
+
+model ProductVideo {
+  id        String   @id @default(uuid())
+  productId String
+  url       String
+  posterUrl String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [slug], onDelete: Cascade)
+}
+
+model Category {
+  id            String  @id @default(uuid())
+  externalId    String
+  name          String
+  marketplaceId String
+  isDisabled    Boolean @default(false)
+  parentId      String?
+  level         Int     @default(0)
+
+  parentCategory  Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  childCategories Category[] @relation("CategoryHierarchy")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products    ProductToCategory[]
+  ancestors   CategoryHierarchy[] @relation("Ancestors")
+  descendants CategoryHierarchy[] @relation("Descendants")
+
+  @@unique([externalId, marketplaceId])
+  @@index([name, marketplaceId])
+  @@map("categories")
+}
+
+model CategoryHierarchy {
+  ancestorId   String
+  descendantId String
+  depth        Int
+
+  ancestor   Category @relation("Ancestors", fields: [ancestorId], references: [id])
+  descendant Category @relation("Descendants", fields: [descendantId], references: [id])
+
+  @@id([ancestorId, descendantId])
+  @@unique([ancestorId, descendantId])
+  @@index([ancestorId, descendantId])
+  @@map("category_hierarchy")
+}
+
+model ProductToCategory {
+  id         String   @id @default(uuid())
+  productId  String
+  categoryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  product  Product  @relation(fields: [productId], references: [slug], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@map("product_categories")
+}
