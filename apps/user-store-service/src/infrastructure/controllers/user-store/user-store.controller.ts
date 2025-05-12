@@ -9,8 +9,6 @@ export class UserStoreController {
 
   @MessagePattern('user-store.add-user-to-store')
   async addUserToStore(createUserStoreDto: CreateManyUserStoreDto) {
-    console.log('createUserStoreDto', createUserStoreDto);
-
     return await this.userStoreUseCase.addUserToStore(createUserStoreDto);
   }
 

@@ -39,8 +39,6 @@ export class UserStoreUseCase {
 
     const records = await Promise.all(recordsQty);
 
-    console.log(records);
-
     return records;
   }
 
