@@ -1,7 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateStoreDto } from './stores.dto';
+import { CreateMarketplaceTokenDto, CreateStoreDto } from './stores.dto';
 import { lastValueFrom } from 'rxjs';
+import { Services } from 'shared/src/lib/errors/error-codes';
+import { MarketplaceTokenInvalidDataError } from 'shared/src/lib/errors/marketplace-token';
 
 @Injectable()
 export class StoresService {
@@ -45,5 +47,40 @@ export class StoresService {
         slug,
       })
     );
+  }
+
+  async addMarketplaceToken(
+    createMarketplaceTokenDto: CreateMarketplaceTokenDto
+  ) {
+    if (
+      !createMarketplaceTokenDto.storeSlug ||
+      !createMarketplaceTokenDto.marketplace ||
+      !createMarketplaceTokenDto.token ||
+      !createMarketplaceTokenDto.sellerId
+    ) {
+      throw new BadRequestException(
+        'Все поля (storeSlug, marketplace, token, sellerId  ) должны быть указаны'
+      );
+    }
+
+    const dataToCreate = {
+      storeSlug: createMarketplaceTokenDto.storeSlug,
+      marketplace: createMarketplaceTokenDto.marketplace,
+      token: createMarketplaceTokenDto.token,
+      sellerId: createMarketplaceTokenDto.sellerId,
+    };
+
+    console.log('dataToCreate', dataToCreate);
+
+    const token = await lastValueFrom(
+      this.client.send(
+        'user-store.marketplace-token.create',
+        createMarketplaceTokenDto
+      )
+    );
+
+    console.log('token', token);
+
+    return token;
   }
 }

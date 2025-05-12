@@ -10,7 +10,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
-import { CreateStoreDto, UpdateStoreDto } from './stores.dto';
+import {
+  CreateMarketplaceTokenDto,
+  CreateStoreDto,
+  UpdateStoreDto,
+} from './stores.dto';
 import { Request } from 'express';
 import { StoreAccessGuard } from '../../shared/guards/store-access.guard';
 import { StoreRoles } from '../../shared/decorators/store-roles.decorator';
@@ -24,6 +28,18 @@ export class StoresController {
   @Post()
   async createStore(@Body() createStoreDto: CreateStoreDto) {
     return this.storesService.createStore(createStoreDto);
+  }
+
+  @Post(':slug/marketplace-token')
+  @StoreRoles(StoreRole.OWNER, StoreRole.ADMIN)
+  async createMarketplaceToken(
+    @Param('slug') slug: string,
+    @Body() createMarketplaceTokenDto: CreateMarketplaceTokenDto
+  ) {
+    return this.storesService.addMarketplaceToken({
+      ...createMarketplaceTokenDto,
+      storeSlug: slug,
+    });
   }
 
   @Get(':slug')
